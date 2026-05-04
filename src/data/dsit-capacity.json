@@ -1,0 +1,22 @@
+{
+  "headline_total_mw": 1600,
+  "regional_table_sum_mw": 1566,
+  "source": "DSIT Estimate of Data Centre Capacity Great Britain 2024",
+  "source_url": "https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024",
+  "reference_date": "autumn 2024",
+  "published": "2025",
+  "note": "Maximum rated IT load of colocation data centres. Does not include enterprise on-premises facilities. Regional table sums to 1,566 MW; GOV.UK headline is 1.6 GW (rounded). Published in aggregated regional form only; underlying site-level data is commercially sensitive. Use 1,600 MW for the national hero figure; use regional table values for regional breakdowns.",
+  "regions": [
+    { "itl1_code": "TLC", "name": "North East",                    "it_capacity_mw": 17   },
+    { "itl1_code": "TLD", "name": "North West",                    "it_capacity_mw": 52   },
+    { "itl1_code": "TLE", "name": "Yorkshire and the Humber",      "it_capacity_mw": 16   },
+    { "itl1_code": "TLF", "name": "East Midlands",                 "it_capacity_mw": 9    },
+    { "itl1_code": "TLG", "name": "West Midlands",                 "it_capacity_mw": 15   },
+    { "itl1_code": "TLH", "name": "East of England",               "it_capacity_mw": 44   },
+    { "itl1_code": "TLI", "name": "London",                        "it_capacity_mw": 1048 },
+    { "itl1_code": "TLJ", "name": "South East",                    "it_capacity_mw": 128  },
+    { "itl1_code": "TLK", "name": "South West",                    "it_capacity_mw": 53   },
+    { "itl1_code": "TLL", "name": "Wales",                         "it_capacity_mw": 154  },
+    { "itl1_code": "TLM", "name": "Scotland",                      "it_capacity_mw": 30   }
+  ]
+}

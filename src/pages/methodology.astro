@@ -1,0 +1,308 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Methodology: a modelled estimate, not a meter — The Cloud Kettle Index"
+  description="How The Cloud Kettle Index estimates Great Britain's data-centre electricity load."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12 prose prose-slate">
+
+    <h1 class="text-3xl font-bold text-[var(--color-text)] mb-2">
+      Methodology: a modelled estimate, not a meter
+    </h1>
+    <p class="text-[var(--color-muted)] text-sm mb-8">
+      Last updated May 2026. <a href="https://github.com/prismatic-labs/cloud-kettle-index/blob/main/METHODOLOGY.md">View on GitHub</a>
+    </p>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">What this site does</h2>
+      <p>
+        The Cloud Kettle Index estimates GB data-centre electricity demand and expresses it as
+        <strong>kettle-boils per second</strong>. GB electricity demand falls by roughly 15–20%
+        on bank holidays and quiet days. Data-centre demand is generally much flatter &mdash; so
+        when national demand dips, data centres represent a larger share of the grid.
+      </p>
+      <p>
+        The figures are <strong>modelled, not metered</strong>. The central estimate comes from
+        NESO&rsquo;s 2025 national figure; the scenario range from DSIT&rsquo;s published
+        capacity data. Both sources are cited throughout.
+      </p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">The kettle-boil unit</h2>
+      <p>
+        One kettle-boil is defined as <strong>0.1 kWh</strong> — the energy a 3&nbsp;kW electric kettle
+        uses to boil approximately one litre of water from 15°C to 100°C.
+      </p>
+      <p>
+        One <em>kettle-boil per second</em> is a rate: it means 0.1 kWh of energy is consumed every second.
+        Continuous power = 0.1&nbsp;kWh &times; 3,600&nbsp;s/hr = 360&nbsp;kW = <strong>0.36&nbsp;MW</strong>.
+        Therefore:
+      </p>
+      <pre class="bg-gray-50 border border-gray-200 rounded p-4 text-sm overflow-x-auto">
+kettle-boils per second = facility load (MW) ÷ 0.36</pre>
+      <p class="text-sm text-[var(--color-muted)] mt-2">
+        Note: this is an energy-rate metric, not a count of simultaneously boiling kettles.
+        "2,000 kettle-boils per second" means the data centres are consuming enough energy every second
+        to boil 2,000 one-litre kettles — not that 2,000 kettles are boiling simultaneously.
+        That would be a different, and much larger, number.
+      </p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">The dual-baseline model</h2>
+      <p>
+        We cannot directly measure live data-centre electricity demand. The model combines two
+        independent public sources: a national demand estimate from the grid operator (NESO), and
+        a capacity-based scenario range from DSIT.
+      </p>
+
+      <h3 class="font-semibold mt-5 mb-2">Central estimate — NESO FES 2025</h3>
+      <pre class="bg-gray-50 border border-gray-200 rounded p-4 text-sm overflow-x-auto">
+NESO estimate: 7.6 TWh/year from 2.4 GW connected GB data-centre facilities
+Average continuous power: 7.6 TWh ÷ 8,760 h/year = ~868 MW
+Kettle-boils/sec: 868 MW ÷ 0.36 = ~2,410 kbs
+
+Estimated share of GB demand
+  = ~868 MW ÷ live Elexon BMRS demand (MW)</pre>
+      <p class="text-sm text-gray-600 mt-2">
+        Source: NESO Future Energy Scenarios 2025 (July 2025), confirmed in
+        UK Parliament POSTnote 762 (March 2026). The 7.6&nbsp;TWh figure represents total
+        facility electricity consumption (grid draw), not IT load alone. It covers all
+        connected data-centre facilities in GB, including enterprise and colocation.
+      </p>
+
+      <h3 class="font-semibold mt-6 mb-2">Scenario range — DSIT capacity model</h3>
+      <pre class="bg-gray-50 border border-gray-200 rounded p-4 text-sm overflow-x-auto">
+Facility load (MW) = DSIT IT capacity × capacity-utilisation × PUE
+
+  DSIT GB colocation IT capacity: 1,600 MW (maximum rated, autumn 2024)
+  Capacity-utilisation: 40% (low) · 55% (central) · 70% (high)   — assumptions
+  PUE:                  1.2 (low) · 1.4 (central) · 1.6 (high)   — assumptions
+
+  Low:  1,600 × 0.40 × 1.2 =   768 MW  →  2,130 kbs
+  High: 1,600 × 0.70 × 1.6 = 1,792 MW  →  4,980 kbs
+
+The NESO central estimate (~868 MW) sits within this range.</pre>
+      <p class="text-sm text-gray-600 mt-2">
+        <strong>Why two sources?</strong> NESO&rsquo;s figure starts from measured electricity
+        demand and covers all GB data centres. DSIT&rsquo;s capacity data covers colocation
+        facilities only and requires utilisation and PUE assumptions. Together they bracket
+        a plausible range. The NESO figure is the more directly relevant demand estimate;
+        the DSIT scenarios provide uncertainty bounds.
+      </p>
+
+      <h3 class="font-semibold mt-6 mb-2">Intraday shaping — UKPN measured profiles</h3>
+      <p class="text-sm text-gray-600">
+        The NESO 7.6&nbsp;TWh figure is an annual average. To reflect how data-centre load
+        varies through the day, the NESO central estimate is scaled by a relative utilisation
+        multiplier derived from <strong>UKPN&rsquo;s Data Centre Demand Profiles</strong>
+        dataset &mdash; half-hourly apparent-power readings from 96 anonymised data-centre sites
+        (78 colocation, 18 enterprise) in the UKPN licence area (London, South East, East of England),
+        January 2023&ndash;April 2026. The dataset covers 28 bank holiday days in that period.
+        Readings are utilisation ratios, not absolute megawatts.
+      </p>
+      <p class="text-sm text-gray-600 mt-2">
+        The multiplier is looked up by day type (weekday, Saturday, Sunday, or bank holiday)
+        and half-hour slot. Timestamps are parsed as UTC and converted to Europe/London
+        before slot assignment, ensuring correct handling of British Summer Time.
+        Each site&rsquo;s shape index is normalised to its own overall mean across all data,
+        preserving genuine day-type differences: weekdays run ~1.6% above the overall baseline,
+        while bank holidays run ~3.6% below. Intraday peak-to-trough variation is ~5.8% on
+        weekdays and ~4.0% on bank holidays. The DSIT scenario band is intentionally
+        left flat &mdash; it represents structural uncertainty in capacity and utilisation, not
+        intraday variation.
+      </p>
+      <p class="text-sm text-gray-600 mt-2">
+        UKPN profiles cover UKPN licence areas only and may not be nationally representative.
+        The shaping affects the NESO central estimate only; the DSIT scenario bounds remain
+        unaffected. The raw UKPN parquet data is not published here; only the derived
+        aggregate profiles are committed to the repository.
+      </p>
+
+      <p class="bg-amber-50 border-l-4 border-amber-400 pl-4 py-2 text-sm mt-4">
+        <strong>Important:</strong> The NESO 7.6&nbsp;TWh is an annual average, not a live
+        reading. The actual load at any given moment will vary. DSIT&rsquo;s 1.6&nbsp;GW is
+        maximum rated IT load for colocation data centres as of autumn 2024 — not total
+        facility draw, not 2026 capacity, and not all data-centre types. Neither figure
+        is a live meter.
+      </p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">Data sources</h2>
+      <dl class="space-y-5">
+
+        <div>
+          <dt class="font-semibold">
+            <a href="https://www.neso.energy/publications/future-energy-scenarios-fes">
+              NESO Future Energy Scenarios 2025
+            </a>
+          </dt>
+          <dd class="text-sm mt-1">
+            Published July 2025 by the National Energy System Operator. Estimates current GB
+            data-centre electricity consumption at 7.6&nbsp;TWh/year from 2.4&nbsp;GW of connected
+            facilities. This figure covers all connected data-centre facility types (colocation,
+            enterprise, hyperscaler). It is an annual estimate, not a half-hourly measurement.
+            Repeated verbatim in UK Parliament POSTnote 762 (March 2026).
+          </dd>
+        </div>
+
+        <div>
+          <dt class="font-semibold">
+            <a href="https://post.parliament.uk/research-briefings/post-pn-0762/">
+              UK Parliament POSTnote 762 — Data Centres (March 2026)
+            </a>
+          </dt>
+          <dd class="text-sm mt-1">
+            Parliamentary Office of Science and Technology briefing confirming the NESO figure:
+            &ldquo;All grid-connected data centre facilities in the UK consumed an estimated 7.6&nbsp;TWh
+            annually&rdquo; and &ldquo;data centres use around 2% of the UK&rsquo;s electricity.&rdquo;
+          </dd>
+        </div>
+
+        <div>
+          <dt class="font-semibold">
+            <a href="https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024">
+              DSIT Estimate of Data Centre Capacity Great Britain 2024
+            </a>
+          </dt>
+          <dd class="text-sm mt-1">
+            Department for Science, Innovation and Technology publication (GOV.UK, published 2025).
+            Provides maximum rated IT load of colocation data centres at national and NUTS1/ITL1 regional
+            level. Data collected from public sources, industry engagement, and modelling. Covers
+            colocation facilities; <strong>does not include enterprise on-premises data centres</strong>
+            and has limited coverage of hyperscaler (cloud provider) in-house infrastructure.
+            Regional figures are published in aggregated form only; underlying site-level data is
+            commercially sensitive. The national headline figure (1.6&nbsp;GW) and regional table
+            figures are committed as static JSON in this repository and verified against the live
+            GOV.UK publication.
+          </dd>
+        </div>
+
+        <div>
+          <dt class="font-semibold">
+            <a href="https://developer.elexon.co.uk">Elexon BMRS Initial National Demand Outturn</a>
+          </dt>
+          <dd class="text-sm mt-1">
+            Public API from Elexon, the electricity balancing and settlement code manager for GB.
+            Provides half-hourly GB electricity demand in MW, updated within approximately 15 minutes
+            of the end of each settlement period. No authentication required. Used for the live
+            "share of GB demand" figure and the demand chart. We fetch this directly in the browser;
+            the displayed timestamp reflects the settlement period start time.
+          </dd>
+        </div>
+
+        <div>
+          <dt class="font-semibold">
+            <a href="https://api.carbonintensity.org.uk">Carbon Intensity API</a>
+          </dt>
+          <dd class="text-sm mt-1">
+            Public API jointly operated by National Energy System Operator (NESO) and Oxford University.
+            Provides national and regional carbon intensity (gCO₂/kWh) at half-hourly resolution.
+            Regional carbon intensity is shown as context alongside postcode lookups; it does not
+            affect the modelled data-centre load figure.
+          </dd>
+        </div>
+
+        <div>
+          <dt class="font-semibold"><a href="https://postcodes.io">postcodes.io</a></dt>
+          <dd class="text-sm mt-1">
+            Public API mapping UK postcodes to administrative geographies including ITL1/NUTS1 region
+            codes. Used to map a user-entered postcode to its DSIT ITL1 region for the regional
+            capacity lookup.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">Geographic scope: Great Britain, not the United Kingdom</h2>
+      <p>
+        Elexon and the Carbon Intensity API cover <strong>Great Britain</strong> (England, Scotland, Wales).
+        Northern Ireland operates a separate electricity system under the Single Electricity Market,
+        managed by SONI (System Operator for Northern Ireland), and is <strong>not included</strong> in
+        any figure on this site. DSIT's dataset similarly covers Great Britain.
+      </p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">Postcode lookup</h2>
+      <p>
+        The postcode lookup uses postcodes.io to derive an ITL1/NUTS1 region code, then applies the same
+        scenario model using DSIT's regional IT capacity figures. Regional carbon intensity is fetched
+        separately from the Carbon Intensity API.
+      </p>
+      <p class="text-sm text-[var(--color-muted)]">
+        The Carbon Intensity API uses Distribution Network Operator (DNO) regions; DSIT uses ITL1
+        statistical regions. These geographies do not perfectly align. The regional capacity and carbon
+        intensity figures are drawn from different geographic boundaries and should not be treated as
+        precisely co-located measurements.
+      </p>
+      <p>
+        Postcodes in Northern Ireland, the Channel Islands, and the Isle of Man return an explicit
+        "not supported" message. The site does not silently degrade.
+      </p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">Limitations and known assumptions</h2>
+      <ul class="space-y-2 text-sm list-disc list-outside pl-5">
+        <li>
+          The model assumes DSIT's autumn 2024 colocation capacity figure is broadly representative
+          of current capacity. Actual capacity may have changed.
+        </li>
+        <li>
+          Utilisation and PUE are scenario assumptions applied uniformly. In reality, different
+          facilities have different utilisation rates and PUE values, which vary by operator, age,
+          and season.
+        </li>
+        <li>
+          The model does not capture intra-day variation in data-centre load. Evidence suggests
+          data centres are predominantly baseload — relatively flat — but this is assumed, not measured.
+        </li>
+        <li>
+          DSIT's dataset covers colocation data centres and does not include enterprise on-premises
+          facilities or provide comprehensive coverage of hyperscaler (cloud provider) owned
+          infrastructure. Total data-centre electricity demand in GB is therefore likely higher
+          than the figures shown.
+        </li>
+        <li>
+          The regional model uses ITL1-level DSIT figures, not local-authority-level data.
+          Site-level or local-authority-level data is not publicly available without registration.
+        </li>
+      </ul>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">What this site does not claim</h2>
+      <ul class="space-y-2 text-sm list-disc list-outside pl-5">
+        <li>It does not claim to show live metered data-centre electricity demand.</li>
+        <li>It does not claim to measure AI-specific electricity use. Data centres power AI, cloud storage, streaming, banking, SaaS, and all internet infrastructure.</li>
+        <li>It does not identify nearest data centres from a postcode.</li>
+        <li>It does not use UKPN profiles to estimate absolute GB data-centre MW or live data-centre demand. UKPN measured profiles are used only for relative load shape (intraday and day-type variation).</li>
+        <li>It does not claim regional carbon intensity and DSIT capacity regions are the same geography.</li>
+        <li>It does not claim DSIT's 1.6&nbsp;GW is a current 2026 live figure.</li>
+        <li>It does not include Northern Ireland.</li>
+      </ul>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">What would make this estimate better</h2>
+      <ul class="space-y-2 text-sm list-disc list-outside pl-5">
+        <li><strong>Site-level disclosure from operators.</strong> If major data-centre operators published their grid connection utilisation at half-hourly resolution, we could replace the scenario model with measured demand. Several European jurisdictions are moving towards mandatory reporting.</li>
+        <li><strong>National-scale measured data-centre load profiles.</strong> UKPN's half-hourly anonymised load shapes exist but require registration. An openly licensed national equivalent would allow the modelled band to be replaced by a real time series.</li>
+        <li><strong>Updated DSIT capacity estimates.</strong> The current dataset is autumn 2024. Annual updates at regional and sub-regional level would reduce the uncertainty in the capacity figure.</li>
+      </ul>
+      <p class="text-sm text-gray-600 mt-4">
+        Public authorities may already hold relevant evidence &mdash; demand forecasts,
+        planning documents, grid-impact assessments, and connection assumptions. You can
+        ask for it using an Environmental Information Request.
+        <a href="../eir" class="underline font-medium hover:text-gray-900">Create an EIR &rarr;</a>
+      </p>
+    </section>
+
+  </article>
+</BaseLayout>

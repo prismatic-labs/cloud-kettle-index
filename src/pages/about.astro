@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import { nationalModel } from "../lib/dcModel";
+
+const model = nationalModel();
+const kbsLow  = Math.round(model.kettleBoilsPerSec.low  / 10) * 10;
+const kbsHigh = Math.round(model.kettleBoilsPerSec.high / 10) * 10;
+---
+
+<BaseLayout
+  title="About — The Cloud Kettle Index"
+  description="About The Cloud Kettle Index, Prismatic Labs, and boilerplate copy for writers."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12 space-y-10">
+    <h1 class="text-3xl font-bold">About</h1>
+
+    <section>
+      <h2 class="text-xl font-semibold mb-3">The Cloud Kettle Index</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        The Cloud Kettle Index estimates Great Britain&rsquo;s data-centre electricity load and
+        expresses it in a familiar unit: kettle-boils per second.
+        On bank holidays and quiet days, GB electricity demand falls by roughly 15–20%.
+        Data-centre demand is generally much flatter than residential and commercial electricity
+        use &mdash; so when national demand dips, data centres can represent a larger share of
+        the grid. This site makes that contrast visible. All figures are modelled estimates based on published capacity data,
+        not live meter readings. See the <a href="/cloud-kettle-index/methodology">methodology page</a>
+        for the full formula, data sources, and what the site does not claim.
+      </p>
+      <p class="text-gray-700 leading-relaxed">
+        This site covers <strong>Great Britain</strong> only (England, Scotland, Wales). Northern
+        Ireland operates a separate electricity system managed by SONI and is not included.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Prismatic Labs and vetch</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        The Cloud Kettle Index is built by{" "}
+        <a href="https://github.com/prismatic-labs">Prismatic Labs</a>, the team behind{" "}
+        <a href="https://github.com/prismatic-labs/vetch">vetch</a> &mdash; an open-source tool
+        — planet-aware LLM observability with circuit breakers for runaway cost, energy, and carbon.
+      </p>
+      <a href="https://github.com/prismatic-labs/vetch" class="font-medium underline">
+        vetch on GitHub →
+      </a>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Source code and licence</h2>
+      <p class="text-gray-700 leading-relaxed mb-3">
+        Open source under the Apache 2.0 licence.
+      </p>
+      <a href="https://github.com/prismatic-labs/cloud-kettle-index" class="font-medium underline">
+        github.com/prismatic-labs/cloud-kettle-index →
+      </a>
+    </section>
+
+    <section aria-labelledby="brief-heading">
+      <h2 id="brief-heading" class="text-xl font-semibold mb-4">In brief</h2>
+
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Short</h3>
+        <blockquote class="bg-gray-50 border-l-4 border-gray-200 pl-4 py-3 pr-4 text-sm text-gray-700 leading-relaxed italic">
+          The Cloud Kettle Index is a public-interest website that estimates Great Britain&rsquo;s
+          data-centre electricity load and expresses it as kettle-boils per second.
+          On bank holidays, GB electricity demand falls by around 15–20%. Data-centre load does
+          not. The site estimates that data centres draw between {kbsLow.toLocaleString("en-GB")}
+          and {kbsHigh.toLocaleString("en-GB")} kettle-boils per second continuously &mdash;
+          a modelled estimate based on published capacity data, not a live meter reading.
+          Built by Prismatic Labs.
+        </blockquote>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Longer</h3>
+        <blockquote class="bg-gray-50 border-l-4 border-gray-200 pl-4 py-3 pr-4 text-sm text-gray-700 leading-relaxed italic space-y-3">
+          <p>
+            The Cloud Kettle Index is a public-interest website by Prismatic Labs that estimates
+            Great Britain&rsquo;s data-centre electricity load and translates it into a unit
+            everyone can picture: kettle-boils per second, where one kettle-boil equals the
+            energy a standard 3-kilowatt kettle uses to boil one litre of water from cold.
+          </p>
+          <p>
+            On bank holidays, Sundays, and overnight, GB electricity demand typically falls by
+            15–20%. Data-centre demand is generally far flatter than residential and commercial
+            electricity use &mdash; it powers cloud services, streaming, banking, AI, and internet
+            infrastructure around the clock. When national demand dips, data centres can represent
+            a larger share of the grid. The Cloud Kettle Index makes this contrast visible.
+          </p>
+          <p>
+            The site estimates that GB colocation data centres draw between {kbsLow.toLocaleString("en-GB")}
+            and {kbsHigh.toLocaleString("en-GB")} kettle-boils per second on a continuous basis.
+            This is a modelled estimate, not a live meter reading, derived from DSIT&rsquo;s 2024
+            estimate of colocation data-centre IT capacity in Great Britain, adjusted for
+            utilisation and Power Usage Effectiveness. Live GB electricity demand is sourced from
+            Elexon BMRS.
+          </p>
+          <p>
+            Built by Prismatic Labs, which also develops vetch, an open-source tool for measuring
+            LLM inference energy and carbon.
+          </p>
+        </blockquote>
+      </div>
+    </section>
+
+    <section aria-labelledby="notclaim-heading">
+      <h2 id="notclaim-heading" class="text-xl font-semibold mb-3">What this site does not claim</h2>
+      <ul class="space-y-2 text-sm text-gray-700 list-disc list-outside pl-5">
+        <li>It does not claim to show live metered data-centre electricity demand.</li>
+        <li>It does not claim to measure AI-specific electricity use. Data centres power AI, cloud storage, streaming, banking, SaaS, and all internet infrastructure.</li>
+        <li>It does not identify nearest data centres from a postcode.</li>
+        <li>It does not claim DSIT&rsquo;s 1.6&nbsp;GW is a current 2026 live figure (it is an autumn 2024 estimate of colocation facilities).</li>
+        <li>It does not include Northern Ireland (separate grid, operated by SONI).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Contact</h2>
+      <p class="text-gray-700 leading-relaxed">
+        Corrections, questions, or data enquiries:{" "}
+        <a href="mailto:marco@prismaticlabs.ai" class="font-medium underline">
+          marco@prismaticlabs.ai
+        </a>
+      </p>
+    </section>
+
+  </article>
+</BaseLayout>

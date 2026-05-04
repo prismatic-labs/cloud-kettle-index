@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import DemandShare from "../components/DemandShare";
+import DemandChart from "../components/DemandChart";
+import UkpnProfileChart from "../components/UkpnProfileChart";
+import PostcodeLookup from "../components/PostcodeLookup";
+import { nationalModel, NESO_AVERAGE_MW, NESO_AVERAGE_KBS } from "../lib/dcModel";
+
+const model   = nationalModel();
+const kbsLow  = Math.round(model.kettleBoilsPerSec.low  / 10) * 10;
+const kbsHigh = Math.round(model.kettleBoilsPerSec.high / 10) * 10;
+const mwLow   = Math.round(model.facilityLoadMw.low);
+const mwHigh  = Math.round(model.facilityLoadMw.high);
+
+// NESO central estimate, displayed as the primary hero number
+const nesoKbs = Math.round(NESO_AVERAGE_KBS / 10) * 10;   // ~2,410
+const nesoMw  = Math.round(NESO_AVERAGE_MW);               // ~868
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<BaseLayout
+  title="The Cloud Kettle Index — Britain's data-centre electricity load in kettle-boils per second"
+  description="Britain's data-centre electricity load, translated into kettle-boils per second. A modelled public estimate based on NESO's 2025 figures."
+>
+
+  <!-- Hero -->
+  <section class="max-w-4xl mx-auto px-4 pt-12 pb-8">
+
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-3"
+        style="font-family: Georgia, 'Times New Roman', ui-serif, serif;">
+      Data-centre electricity demand, shown in kettle-boils per second
+    </h1>
+
+    <p class="text-base text-gray-500 mb-8 max-w-2xl">
+      The Cloud Kettle Index estimates how much electricity Great Britain&rsquo;s data centres use,
+      then translates that load into kettle-boils per second.
+      The point is simple: make a hard-to-picture part of the grid easier to see.
+    </p>
+
+    <!-- Lead metric: live % share (hydrated) -->
+    <div class="mb-8">
+      <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">
+        Estimated data-centre share of GB demand right now
+      </p>
+      <DemandShare client:load />
+    </div>
+
+    <!-- Narrative statement — always visible, given prominence -->
+    <p class="mt-6 text-sm text-slate-600 border-l-2 border-slate-300 pl-3 leading-relaxed">
+      The live grid is public. Measured data-centre load is not.
+      This site uses the best public sources I could find.
+    </p>
+
+    <!-- Methodology note — always visible, no toggle -->
+    <div class="mt-4 text-sm text-gray-500 max-w-2xl space-y-2">
+      <p>
+        <strong class="text-gray-700">Central estimate:</strong>
+        The National Energy System Operator (NESO) estimates GB data-centre electricity
+        at 7.6&nbsp;TWh/year from 2.4&nbsp;GW of connected facilities
+        <em>(Future Energy Scenarios 2025, confirmed in Parliament POSTnote 762, March 2026)</em>.
+        7.6&nbsp;TWh &divide; 8,760&nbsp;h = ~{nesoMw.toLocaleString("en-GB")}&nbsp;MW average.
+        At 0.36&nbsp;MW per kettle-boil/sec, that is ~{nesoKbs.toLocaleString("en-GB")}&nbsp;kbs.
+      </p>
+      <p>
+        <strong class="text-gray-700">Scenario range:</strong>
+        The Department for Science, Innovation and Technology (DSIT) estimates
+        1,600&nbsp;MW of colocation IT capacity in GB (autumn 2024).
+        Applying utilisation (40–70%) and Power Usage Effectiveness (1.2–1.6)
+        gives {mwLow.toLocaleString("en-GB")}–{mwHigh.toLocaleString("en-GB")}&nbsp;MW
+        ({kbsLow.toLocaleString("en-GB")}–{kbsHigh.toLocaleString("en-GB")}&nbsp;kbs).
+        The NESO central estimate sits within this range.
+      </p>
+      <p>
+        <a href={`${base}/methodology`} class="underline font-medium text-gray-600 hover:text-gray-900">
+          Full methodology →
+        </a>
+      </p>
+    </div>
+
+  </section>
+
+  <!-- Charts -->
+  <section class="max-w-4xl mx-auto px-4 pb-8 space-y-0">
+    <DemandChart client:load />
+    <UkpnProfileChart client:load />
+  </section>
+
+  <!-- EIR CTA -->
+  <section class="max-w-4xl mx-auto px-4 pb-8">
+    <div class="border border-gray-200 rounded bg-white px-6 py-6">
+      <h2 class="text-xl font-semibold mb-3">Help find the real figures for data-centre demand</h2>
+      <p class="text-sm text-gray-600 mb-4 max-w-2xl leading-relaxed">
+        The Cloud Kettle Index uses public estimates because measured data-centre load is hard
+        to access. Environmental Information Requests let you ask public bodies what figures,
+        forecasts, planning assumptions, and grid-impact evidence they hold.
+      </p>
+      <div class="flex flex-wrap gap-x-4 gap-y-2 items-baseline">
+        <a
+          href={`${base}/eir`}
+          class="inline-block bg-gray-800 text-white text-sm font-medium px-4 py-2 rounded hover:bg-gray-700 transition-colors"
+        >
+          Create an Environmental Information Request
+        </a>
+        <a href={`${base}/methodology`} class="text-sm text-gray-500 underline hover:text-gray-800">
+          Read the methodology
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Postcode lookup -->
+  <section class="max-w-4xl mx-auto px-4 pb-12">
+    <h2 class="text-lg font-semibold mb-1">Your area</h2>
+    <p class="text-sm text-gray-500 mb-4">
+      Enter a postcode to look up two things: the DSIT-estimated colocation data-centre IT
+      capacity for your region (from DSIT&rsquo;s 2024 national survey, aggregated at
+      regional level), and the current carbon intensity of your local electricity supply.
+    </p>
+    <PostcodeLookup client:load />
+  </section>
+
+  <!-- Links -->
+  <section class="max-w-4xl mx-auto px-4 pb-16 border-t border-gray-100 pt-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+      <div>
+        <h3 class="font-semibold mb-1">Methodology</h3>
+        <p class="text-gray-500 mb-2">
+          The formula, data sources, assumptions, and what this site does not claim.
+        </p>
+        <a href={`${base}/methodology`} class="underline font-medium">Read the methodology →</a>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-1">About</h3>
+        <p class="text-gray-500 mb-2">
+          About this site, Prismatic Labs, and contact.
+        </p>
+        <a href={`${base}/about`} class="underline font-medium">About →</a>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-1">Help make the data open</h3>
+        <p class="text-gray-500 mb-2">
+          Ask public bodies for the underlying evidence using an Environmental Information Request.
+        </p>
+        <a href={`${base}/eir`} class="underline font-medium">Create an EIR →</a>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-1">vetch</h3>
+        <p class="text-gray-500 mb-2">
+          Planet-aware LLM observability with circuit breakers for runaway cost, energy, and carbon.
+        </p>
+        <a href="https://github.com/prismatic-labs/vetch" class="underline font-medium">GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+
+</BaseLayout>
