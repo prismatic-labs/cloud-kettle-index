@@ -10,7 +10,7 @@ export type UsDemandKey =
   | "projection2029"
   | "projection2030";
 
-// Explicit ordered set — controls iteration order and validates keys.
+// Explicit ordered set - controls iteration order and validates keys.
 // Filter to keys present in the region's demandMw; absent keys are skipped.
 const DEMAND_KEYS: UsDemandKey[] = [
   "actual2024",

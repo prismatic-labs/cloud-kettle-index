@@ -62,7 +62,7 @@ export default function UsDemandTrajectory({ scenarios, primary, sources }: Prop
         <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
           <div>
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-              Published Dominion data-centre billing demand — 2024-2030
+              Published Dominion data-centre billing demand - 2024-2030
             </p>
             <p className="text-xs text-amber-700 font-medium tabular-nums mt-0.5">
               {selected.label}: {formatKbs(selected.kbs)} kettle-boils/sec
@@ -250,9 +250,9 @@ export default function UsDemandTrajectory({ scenarios, primary, sources }: Prop
         </details>
 
         <p className="text-xs text-gray-400 mt-3 pb-2">
-          Hover over a point or select a year below to inspect the conversion. The GB chart can show a live 24-hour share
-          because GB grid demand is public through Elexon. This US chart shows the published
-          Dominion forecast trajectory; it is not a live data-centre meter.
+          Select a year to inspect the conversion. The GB page can show a live 24-hour share
+          because GB grid demand is public through Elexon. Here, the public Dominion series is a
+          forecast trajectory, not a live data-centre meter.
         </p>
       </div>
 

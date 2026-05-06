@@ -36,7 +36,7 @@ export function buildNationalShareText(state: NationalShareInput): string {
     : `Data as of ${state.time}, ${state.date}.`;
 
   return [
-    `The Cloud Kettle Index puts Britain's annual-average data-centre electricity demand at ~${fmt(state.nesoKbs)} kettle-boils per second — based on NESO's 2025 estimate of 7.6 TWh/year, equivalent to ~${state.nesoShare.toFixed(1)}% of current GB electricity demand.`,
+    `The Cloud Kettle Index puts Britain's annual-average data-centre electricity demand at ~${fmt(state.nesoKbs)} kettle-boils per second - based on NESO's 2025 estimate of 7.6 TWh/year, equivalent to ~${state.nesoShare.toFixed(1)}% of current GB electricity demand.`,
     ``,
     `Scenario range (DSIT capacity model): ${fmt(state.lowKettles)}–${fmt(state.highKettles)} kbs, or ${state.lowShare.toFixed(1)}–${state.highShare.toFixed(1)}% of GB demand.`,
     ``,
@@ -57,7 +57,7 @@ export function buildRegionalShareText(state: RegionalShareInput): string {
   const lines = [
     `The Cloud Kettle Index estimates that data-centre load in ${state.regionName} is equivalent to ${fmt(state.lowKettles)}–${fmt(state.highKettles)} kettle-boils per second (modelled ${fmtMw(state.lowMw)}–${fmtMw(state.highMw)} MW facility load).`,
     ``,
-    `That is a modelled regional estimate based on DSIT data-centre capacity, utilisation and PUE scenarios — not a live meter.`,
+    `That is a modelled regional estimate based on DSIT data-centre capacity, utilisation and PUE scenarios - not a live meter.`,
   ];
 
   if (carbonLine) {

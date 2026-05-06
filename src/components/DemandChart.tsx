@@ -136,7 +136,7 @@ export default function DemandChart() {
   // latestNeso already set above
   const ariaLabel = latestNeso
     ? `Modelled data-centre load as share of GB demand over the past 24 hours. NESO 2025 estimate currently ~${latestNeso.toFixed(1)}% of GB demand.`
-    : "Chart loading — modelled data-centre share of GB electricity demand.";
+    : "Chart loading - modelled data-centre share of GB electricity demand.";
 
   return (
     <figure className="my-6">
@@ -146,7 +146,7 @@ export default function DemandChart() {
         <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
           <div>
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-              Modelled data-centre share of GB demand — last 24 hours
+              Modelled data-centre share of GB demand - last 24 hours
             </p>
             {latestNeso && (
               <p className="text-xs text-amber-700 font-medium font-tabular mt-0.5">
@@ -177,7 +177,7 @@ export default function DemandChart() {
         >
           {noData && (
             <p className="text-sm text-gray-400 py-20 text-center">
-              No demand data yet — chart populates as Elexon settlement periods complete.
+              No demand data yet - chart populates as Elexon settlement periods complete.
             </p>
           )}
         </div>
@@ -185,7 +185,7 @@ export default function DemandChart() {
         {/* Annotation */}
         <p className="text-xs text-gray-400 mt-2 pb-2">
           When national demand falls overnight or on quiet days, always-on loads take a
-          larger share of the grid — even if their own consumption is only modelled as
+          larger share of the grid - even if their own consumption is only modelled as
           roughly steady.
         </p>
       </div>

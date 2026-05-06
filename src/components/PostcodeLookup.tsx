@@ -36,7 +36,7 @@ export default function PostcodeLookup() {
       carbonRegion: state.intensity?.shortname ?? null,
       url: SITE_URL,
     });
-    return { title: `The Cloud Kettle Index — ${state.regional.regionName}`, text, url: SITE_URL };
+    return { title: `The Cloud Kettle Index - ${state.regional.regionName}`, text, url: SITE_URL };
   }, [state]);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -64,7 +64,7 @@ export default function PostcodeLookup() {
     if (!regional) {
       setState({
         status: "error",
-        error: `No regional capacity data found for this area (ITL1: ${loc.itl1Code}). This is unexpected — please report it.`,
+        error: `No regional capacity data found for this area (ITL1: ${loc.itl1Code}). This is unexpected - please report it.`,
       });
       return;
     }

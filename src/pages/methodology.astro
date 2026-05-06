@@ -3,7 +3,7 @@ import BaseLayout from "../components/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="Methodology: a modelled estimate, not a meter — The Cloud Kettle Index"
+  title="Methodology: a modelled estimate, not a meter - The Cloud Kettle Index"
   description="How The Cloud Kettle Index estimates Great Britain's data-centre electricity load."
 >
   <article class="max-w-3xl mx-auto px-4 py-12 prose prose-slate">
@@ -50,7 +50,7 @@ import BaseLayout from "../components/BaseLayout.astro";
       <p>
         The Cloud Kettle Index estimates GB data-centre electricity demand and expresses it as
         <strong>kettle-boils per second</strong>. GB electricity demand falls by roughly 15–20%
-        on bank holidays and quiet days. Data-centre demand is generally much flatter &mdash; so
+        on bank holidays and quiet days. Data-centre demand is generally much flatter - so
         when national demand dips, data centres represent a larger share of the grid.
       </p>
       <p>
@@ -63,7 +63,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     <section id="kettle-boil-unit" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">The kettle-boil unit</h2>
       <p>
-        One kettle-boil is defined as <strong>0.1 kWh</strong> — the energy a 3&nbsp;kW electric kettle
+        One kettle-boil is defined as <strong>0.1 kWh</strong> - the energy a 3&nbsp;kW electric kettle
         uses to boil approximately one litre of water from 15°C to 100°C.
       </p>
       <p>
@@ -76,7 +76,7 @@ kettle-boils per second = facility load (MW) ÷ 0.36</pre>
       <p class="text-sm text-[var(--color-muted)] mt-2">
         Note: this is an energy-rate metric, not a count of simultaneously boiling kettles.
         "2,000 kettle-boils per second" means the data centres are consuming enough energy every second
-        to boil 2,000 one-litre kettles — not that 2,000 kettles are boiling simultaneously.
+        to boil 2,000 one-litre kettles - not that 2,000 kettles are boiling simultaneously.
         That would be a different, and much larger, number.
       </p>
     </section>
@@ -89,7 +89,7 @@ kettle-boils per second = facility load (MW) ÷ 0.36</pre>
         a capacity-based scenario range from DSIT.
       </p>
 
-      <h3 class="font-semibold mt-5 mb-2">Central estimate — NESO FES 2025</h3>
+      <h3 class="font-semibold mt-5 mb-2">Central estimate - NESO FES 2025</h3>
       <pre class="bg-gray-50 border border-gray-200 rounded p-4 text-sm overflow-x-auto">
 NESO estimate: 7.6 TWh/year from 2.4 GW connected GB data-centre facilities
 Average continuous power: 7.6 TWh ÷ 8,760 h/year = ~868 MW
@@ -104,13 +104,13 @@ Estimated share of GB demand
         connected data-centre facilities in GB, including enterprise and colocation.
       </p>
 
-      <h3 class="font-semibold mt-6 mb-2">Scenario range — DSIT capacity model</h3>
+      <h3 class="font-semibold mt-6 mb-2">Scenario range - DSIT capacity model</h3>
       <pre class="bg-gray-50 border border-gray-200 rounded p-4 text-sm overflow-x-auto">
 Facility load (MW) = DSIT IT capacity × capacity-utilisation × PUE
 
   DSIT GB colocation IT capacity: 1,600 MW (maximum rated, autumn 2024)
-  Capacity-utilisation: 40% (low) · 55% (central) · 70% (high)   — assumptions
-  PUE:                  1.2 (low) · 1.4 (central) · 1.6 (high)   — assumptions
+  Capacity-utilisation: 40% (low) · 55% (central) · 70% (high)   - assumptions
+  PUE:                  1.2 (low) · 1.4 (central) · 1.6 (high)   - assumptions
 
   Low:  1,600 × 0.40 × 1.2 =   768 MW  →  2,130 kbs
   High: 1,600 × 0.70 × 1.6 = 1,792 MW  →  4,980 kbs
@@ -124,12 +124,12 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
         the DSIT scenarios provide uncertainty bounds.
       </p>
 
-      <h3 class="font-semibold mt-6 mb-2">Intraday shaping — UKPN measured profiles</h3>
+      <h3 class="font-semibold mt-6 mb-2">Intraday shaping - UKPN measured profiles</h3>
       <p class="text-sm text-gray-600">
         The NESO 7.6&nbsp;TWh figure is an annual average. To reflect how data-centre load
         varies through the day, the NESO central estimate is scaled by a relative utilisation
         multiplier derived from <strong>UKPN&rsquo;s Data Centre Demand Profiles</strong>
-        dataset &mdash; half-hourly apparent-power readings from 96 anonymised data-centre sites
+        dataset - half-hourly apparent-power readings from 96 anonymised data-centre sites
         (78 colocation, 18 enterprise) in the UKPN licence area (London, South East, East of England),
         January 2023&ndash;April 2026. The dataset covers 28 bank holiday days in that period.
         Readings are utilisation ratios, not absolute megawatts.
@@ -142,7 +142,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
         preserving genuine day-type differences: weekdays run ~1.6% above the overall baseline,
         while bank holidays run ~3.6% below. Intraday peak-to-trough variation is ~5.8% on
         weekdays and ~4.0% on bank holidays. The DSIT scenario band is intentionally
-        left flat &mdash; it represents structural uncertainty in capacity and utilisation, not
+        left flat - it represents structural uncertainty in capacity and utilisation, not
         intraday variation.
       </p>
       <p class="text-sm text-gray-600 mt-2">
@@ -155,7 +155,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
       <p class="bg-amber-50 border-l-4 border-amber-400 pl-4 py-2 text-sm mt-4">
         <strong>Important:</strong> The NESO 7.6&nbsp;TWh is an annual average, not a live
         reading. The actual load at any given moment will vary. DSIT&rsquo;s 1.6&nbsp;GW is
-        maximum rated IT load for colocation data centres as of autumn 2024 — not total
+        maximum rated IT load for colocation data centres as of autumn 2024 - not total
         facility draw, not 2026 capacity, and not all data-centre types. Neither figure
         is a live meter.
       </p>
@@ -183,7 +183,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
         <div>
           <dt class="font-semibold">
             <a href="https://post.parliament.uk/research-briefings/post-pn-0762/">
-              UK Parliament POSTnote 762 — Data Centres (March 2026)
+              UK Parliament POSTnote 762 - Data Centres (March 2026)
             </a>
           </dt>
           <dd class="text-sm mt-1">
@@ -291,7 +291,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
         </li>
         <li>
           The model does not capture intra-day variation in data-centre load. Evidence suggests
-          data centres are predominantly baseload — relatively flat — but this is assumed, not measured.
+          data centres are predominantly baseload - relatively flat - but this is assumed, not measured.
         </li>
         <li>
           DSIT's dataset covers colocation data centres and does not include enterprise on-premises
@@ -350,7 +350,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
         The GB model applies capacity-utilisation and Power Usage Effectiveness (PUE) assumptions
         to DSIT&rsquo;s <em>IT capacity</em> figure to estimate total facility electricity demand.
         That step is necessary because DSIT reports IT load, not facility draw.
-        Dominion&rsquo;s billing-demand figures are already power demand — the grid draw in MW.
+        Dominion&rsquo;s billing-demand figures are already power demand - the grid draw in MW.
         Applying utilisation and PUE again would double-count. The conversion used is simply:
       </p>
       <pre class="bg-gray-50 border border-gray-200 rounded p-4 text-sm overflow-x-auto mt-2">
@@ -360,8 +360,8 @@ kbs = billing_demand_mw / 0.36</pre>
       <p class="text-sm text-gray-600">
         Dominion&rsquo;s billing demand figure represents peak or contracted demand used for
         utility tariff calculations, not average energy use or coincident grid peak. Dominion
-        separately derives <em>coincident demand</em> &mdash; the actual grid draw at the moment
-        of system peak &mdash; from its billing-demand forecasts; coincident demand is generally
+        separately derives <em>coincident demand</em> - the actual grid draw at the moment
+        of system peak - from its billing-demand forecasts; coincident demand is generally
         somewhat lower. Dominion reports an industry load factor of approximately 90%, implying
         that data centres draw close to their billing demand on average, but the figures are not
         identical. The headline kettle-boils/sec figure on the DC page translates billing demand
@@ -373,7 +373,7 @@ kbs = billing_demand_mw / 0.36</pre>
       <h3 class="font-semibold mt-5 mb-2">Why Northern Virginia / Dominion zone for a DC-area estimate</h3>
       <p class="text-sm text-gray-600">
         I could not identify a public data-centre load figure for the District of Columbia itself.
-        Northern Virginia — primarily Loudoun, Fairfax, and Prince William counties — is reported by JLARC (2024) as
+        Northern Virginia - primarily Loudoun, Fairfax, and Prince William counties - is reported by JLARC (2024) as
         representing roughly 13% of global data-centre operational capacity and 25% of Americas
         capacity. It sits within Dominion Energy Virginia&rsquo;s service territory and powers much
         of the cloud infrastructure used in and around Washington, DC. The Dominion service-territory
@@ -387,8 +387,8 @@ kbs = billing_demand_mw / 0.36</pre>
       <ul class="space-y-2 text-sm list-disc list-outside pl-5">
         <li>A measurement of data centres physically inside Washington, DC.</li>
         <li>Total PJM Interconnection data-centre load (PJM covers 13 states and the District of Columbia).</li>
-        <li>A full Northeast model — PJM, NYISO, and ISO-NE would each require separate treatment.</li>
-        <li>A live grid demand share — this page shows modelled billing-demand estimates only.</li>
+        <li>A full Northeast model - PJM, NYISO, and ISO-NE would each require separate treatment.</li>
+        <li>A live grid demand share - this page shows modelled billing-demand estimates only.</li>
       </ul>
 
       <h3 class="font-semibold mt-5 mb-2">Intraday load shaping</h3>
@@ -463,7 +463,7 @@ kbs = billing_demand_mw / 0.36</pre>
         <li><strong>US county-level or zone-level demand data.</strong> No source used here provides public data-centre-specific load figures at county or PJM-zone level for Northern Virginia. Regulatory filings, Virginia SCC dockets, and county planning records may hold better evidence.</li>
       </ul>
       <p class="text-sm text-gray-600 mt-4">
-        Public authorities may already hold relevant evidence — demand forecasts,
+        Public authorities may already hold relevant evidence - demand forecasts,
         planning documents, grid-impact assessments, and connection assumptions.
       </p>
       <div class="flex flex-wrap gap-4 mt-3">

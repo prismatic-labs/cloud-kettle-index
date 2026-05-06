@@ -14,7 +14,7 @@ Note: this is an energy-rate metric, not a count of simultaneously boiling kettl
 
 ## The dual-baseline model
 
-### Central estimate — NESO FES 2025
+### Central estimate - NESO FES 2025
 
 ```
 NESO estimate: 7.6 TWh/year from 2.4 GW connected GB data-centre facilities
@@ -27,14 +27,14 @@ Estimated share of GB demand
 
 Source: NESO Future Energy Scenarios 2025 (July 2025); confirmed in Parliament POSTnote 762 (March 2026). Total facility electricity, not IT load alone. Covers all connected GB data-centre types.
 
-### Scenario range — DSIT capacity model
+### Scenario range - DSIT capacity model
 
 ```
 Facility load (MW) = DSIT IT capacity × capacity-utilisation × PUE
 
   DSIT GB colocation IT capacity: 1,600 MW (maximum rated, autumn 2024)
-  Capacity-utilisation: 40% (low) · 55% (central) · 70% (high)   — assumptions
-  PUE:                  1.2 (low) · 1.4 (central) · 1.6 (high)   — assumptions
+  Capacity-utilisation: 40% (low) · 55% (central) · 70% (high)   - assumptions
+  PUE:                  1.2 (low) · 1.4 (central) · 1.6 (high)   - assumptions
 
   Low:  1,600 × 0.40 × 1.2 =   768 MW  →  2,130 kbs
   High: 1,600 × 0.70 × 1.6 = 1,792 MW  →  4,980 kbs
@@ -44,11 +44,11 @@ The NESO central estimate (~868 MW) sits within this range.
 
 **PUE** (Power Usage Effectiveness) = total facility grid draw ÷ IT load.
 
-### Intraday shaping — UKPN measured profiles
+### Intraday shaping - UKPN measured profiles
 
 The NESO 7.6 TWh figure is an annual average. To reflect how data-centre load varies through the
 day, the NESO central estimate is scaled by a relative utilisation multiplier derived from
-**UKPN's Data Centre Demand Profiles** dataset — half-hourly apparent-power readings from 96
+**UKPN's Data Centre Demand Profiles** dataset - half-hourly apparent-power readings from 96
 anonymised data-centre sites (78 colocation, 18 enterprise) in the UKPN licence area (London, South
 East, East of England), January 2023–April 2026.
 
@@ -69,17 +69,17 @@ Measured day-type mean factors (relative to each site's overall mean):
 
 Intraday peak-to-trough variation: ~5.8% on weekdays, ~4.0% on bank holidays. UKPN profiles cover
 UKPN licence areas only and may not be nationally representative. The DSIT scenario band is
-intentionally left flat — it represents structural uncertainty in capacity and utilisation, not
+intentionally left flat - it represents structural uncertainty in capacity and utilisation, not
 intraday variation. The raw parquet is not committed; only the derived aggregate profiles are.
 
 ## Data sources
 
 | Source | URL | Use |
 |---|---|---|
-| NESO FES 2025 | https://www.neso.energy/publications/future-energy-scenarios-fes | National DC electricity estimate — central figure (7.6 TWh/yr) |
+| NESO FES 2025 | https://www.neso.energy/publications/future-energy-scenarios-fes | National DC electricity estimate - central figure (7.6 TWh/yr) |
 | Parliament POSTnote 762 | https://post.parliament.uk/research-briefings/post-pn-0762/ | Cross-check for NESO figure |
-| DSIT 2024 | https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024 | National and ITL1 regional IT capacity — scenario range |
-| UKPN Data Centre Demand Profiles | https://ukpowernetworks.opendatasoft.com | Relative load shape only (apparent power utilisation ratios, not absolute MW) — used to shape NESO central estimate |
+| DSIT 2024 | https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024 | National and ITL1 regional IT capacity - scenario range |
+| UKPN Data Centre Demand Profiles | https://ukpowernetworks.opendatasoft.com | Relative load shape only (apparent power utilisation ratios, not absolute MW) - used to shape NESO central estimate |
 | Elexon BMRS | https://developer.elexon.co.uk | Live GB electricity demand (half-hourly) |
 | Carbon Intensity API | https://api.carbonintensity.org.uk | Carbon intensity (context only) |
 | postcodes.io | https://postcodes.io | Postcode → ITL1 region |
@@ -121,7 +121,7 @@ Both sources provide year-by-year data-centre billing demand for Dominion's Virg
 ### Why UTILISATION × PUE is not applied
 
 The GB model applies capacity-utilisation and PUE assumptions to DSIT's *IT capacity* to estimate
-facility electricity demand. Dominion's billing-demand figures are already power demand — the
+facility electricity demand. Dominion's billing-demand figures are already power demand - the
 grid draw in MW. Applying utilisation and PUE again would double-count. The conversion is simply:
 
 ```
@@ -131,8 +131,8 @@ kbs = billing_demand_mw / 0.36
 ### Billing demand vs average continuous load
 
 Dominion's billing demand is the demand value used for utility tariff calculations, not coincident
-grid peak. Dominion separately derives *coincident demand* — the actual grid draw at the time of
-system peak — from billing-demand forecasts; coincident demand is generally somewhat lower.
+grid peak. Dominion separately derives *coincident demand* - the actual grid draw at the time of
+system peak - from billing-demand forecasts; coincident demand is generally somewhat lower.
 Dominion reports a ~90% industry load factor. The headline kbs figure translates billing demand
 directly as a power-rate comparison, not an annual-average energy estimate. Average continuous
 draw can be estimated as billing demand × 0.90, giving ~4,280 MW (~11,900 kbs) for the 2026 projection.
@@ -154,8 +154,8 @@ relevant.
 
 - A measurement of data centres physically inside Washington, DC.
 - Total PJM data-centre load (PJM covers 13 states + DC).
-- A full Northeast model — PJM, NYISO, and ISO-NE would each need separate treatment.
-- A live grid demand share — modelled billing-demand estimates only.
+- A full Northeast model - PJM, NYISO, and ISO-NE would each need separate treatment.
+- A live grid demand share - modelled billing-demand estimates only.
 
 ### Intraday load shaping
 
@@ -182,11 +182,11 @@ page labels this as latest-reported grid context rather than live demand.
 
 For broader national context on US data-centre electricity use (not used as model inputs):
 
-- **[LBNL 2024 US Data Center Energy Usage Report](https://buildings.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report)** — closest US analogue to a national baseline; DOE has noted load could double or triple by 2028.
-- **[EPRI 2026 data-centre electricity analysis](https://www.globenewswire.com/news-release/2026/02/26/3245491/0/en/epri-data-centers-could-consume-up-to-17-of-u-s-electricity-by-2030.html)** — projects 9–17% of US electricity by 2030; a scenario range, not measured load. Cite as context only.
+- **[LBNL 2024 US Data Center Energy Usage Report](https://buildings.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report)** - closest US analogue to a national baseline; DOE has noted load could double or triple by 2028.
+- **[EPRI 2026 data-centre electricity analysis](https://www.globenewswire.com/news-release/2026/02/26/3245491/0/en/epri-data-centers-could-consume-up-to-17-of-u-s-electricity-by-2030.html)** - projects 9–17% of US electricity by 2030; a scenario range, not measured load. Cite as context only.
 
 ## What would make this estimate better
 
-1. **Site-level disclosure from operators** — half-hourly grid utilisation published by operators
-2. **National-scale open measured data-centre load profiles** — UKPN's data exists but requires registration
+1. **Site-level disclosure from operators** - half-hourly grid utilisation published by operators
+2. **National-scale open measured data-centre load profiles** - UKPN's data exists but requires registration
 3. **Annual DSIT capacity updates** at sub-regional level

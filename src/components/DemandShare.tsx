@@ -41,8 +41,8 @@ export default function DemandShare() {
   const generateSharePayload = useCallback(() => {
     const shapedMw  = NESO_AVERAGE_MW * ukpnMultiplier(Date.now());
     const nesoShare = cached ? demandSharePercent(shapedMw, cached.demandMw) : 0;
-    const time = cached ? formatSettlementTime(cached.startTime) : "—";
-    const date = cached ? formatLongDate(cached.startTime) : "—";
+    const time = cached ? formatSettlementTime(cached.startTime) : "--";
+    const date = cached ? formatLongDate(cached.startTime) : "--";
     const text = buildNationalShareText({
       nesoKbs:     NESO_AVERAGE_KBS,
       nesoShare,

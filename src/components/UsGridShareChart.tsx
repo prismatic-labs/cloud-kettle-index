@@ -61,9 +61,8 @@ export default function UsGridShareChart({ primary }: Props) {
             Modelled Dominion data-centre load as share of PJM demand
           </p>
           <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">
-            This chart is wired for EIA hourly PJM demand, but the static cache has not been
-            populated yet. Once the <code className="text-gray-600">EIA_API_KEY</code> secret is
-            available to the build, the scheduled refresh will render the latest-reported PJM context.
+            The PJM comparison will appear after the EIA hourly-demand cache refreshes during a
+            build.
           </p>
         </div>
       </figure>
@@ -97,7 +96,8 @@ export default function UsGridShareChart({ primary }: Props) {
               {pct(latest.billingShare)} of PJM hourly demand ({primary.demandMw.toLocaleString("en-US")} MW ÷ ~{Math.round(primary.demandMw / (latest.billingShare / 100) / 1000) * 1000} MW PJM)
             </p>
             <p className="text-xs text-gray-400 mt-0.5">
-              Numerator: Dominion {primary.label} data-centre billing demand (fixed). Denominator: EIA hourly PJM total (13 states + DC, varies).
+              Dominion {primary.label} data-centre billing demand is fixed here. PJM demand comes
+              from EIA and changes hour by hour.
             </p>
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
@@ -109,7 +109,7 @@ export default function UsGridShareChart({ primary }: Props) {
         <svg
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
           role="img"
-          aria-label="Modelled Dominion data-centre load as a share of latest-reported PJM hourly demand"
+          aria-label="Modelled Dominion data-centre load as a share of reported PJM hourly demand"
           className="w-full h-auto"
         >
           <rect x="0" y="0" width={WIDTH} height={HEIGHT} fill="white" />
@@ -148,14 +148,14 @@ export default function UsGridShareChart({ primary }: Props) {
         </svg>
 
         <p className="text-xs text-gray-400 mt-2 pb-2">
-          The line varies because PJM total demand changes through the day and week — higher on weekday afternoons,
-          lower overnight and on weekends. The Dominion data-centre numerator is a fixed projection, not a live meter.
+          The line moves because PJM demand moves: usually higher on weekday afternoons, lower
+          overnight and on weekends. The Dominion data-centre estimate is fixed, not a live meter.
           Cache generated {formatGeneratedAt(gridData.generatedAt)}.
         </p>
       </div>
       <figcaption className="text-xs text-gray-400 pt-2">
         Source: <a href={gridData.source.url} target="_blank" rel="noopener" className="underline hover:text-gray-600">{gridData.source.title}</a>.
-        EIA API values are latest reported and can lag; this is not a Dominion-zone or county-level meter.
+        EIA values can lag; this is not a Dominion-zone or county-level meter.
       </figcaption>
     </figure>
   );

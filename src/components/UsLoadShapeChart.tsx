@@ -29,7 +29,7 @@ const Y_MAX = 1.28;
 const PROFILE_EXPLANATIONS = [
   ["GS3", "Large general-service customers connected at secondary voltage; a useful commercial/industrial comparator, but not data centres."],
   ["GS4", "Large general-service customers connected at primary voltage; flatter than GS3 in this dataset and closer to very large continuous loads."],
-  ["LGEMLP", "Large miscellaneous light-and-power customers; included because it is a large-load class, though it is broad and not data-centre-specific."],
+  ["LGEMLP", "Large miscellaneous light-and-power customers; broad, but still a large-load class in Dominion's published profiles."],
   ["MS", "Military service profile; included as another large institutional load shape in Dominion's published profiles."],
 ];
 
@@ -69,11 +69,10 @@ export default function UsLoadShapeChart() {
             Generic Dominion large-customer load shapes
           </p>
           <p className="text-xs text-gray-500 leading-relaxed max-w-2xl">
-            Dominion publishes generic customer-class hourly profiles for supplier settlement.
-            They are not data-centre-specific, but they are the closest published Dominion-territory
-            load shapes available. Each profile is normalised to its own average; the 1.0 line is
-            the average baseline. Data centres are often assumed to be high-load-factor loads,
-            but Dominion does not publish measured data-centre hourly profiles.
+            Dominion publishes generic hourly profiles for customer classes. These are not
+            data-centre profiles, but they are useful local context. Each line is scaled to its own
+            average, so 1.0 means a normal hour for that class. Dominion has not published an
+            equivalent hourly profile for data centres.
           </p>
         </div>
 
@@ -118,7 +117,7 @@ export default function UsLoadShapeChart() {
 
         <p className="text-xs text-gray-500 mb-3">
           <strong className="text-gray-700">{selected.label}:</strong>{" "}
-          {selected.description}. The selected profile varies by{" "}
+          {selected.description}. This profile varies by{" "}
           <strong className="text-gray-700">{variation(classValues)}%</strong> peak-to-trough on a{" "}
           {DAY_LABELS[dayType].toLowerCase()}.
         </p>
@@ -176,9 +175,9 @@ export default function UsLoadShapeChart() {
         </div>
 
         <p className="text-xs text-gray-400 mt-2">
-          Dominion class profiles are generic settlement profiles, not measured data-centre profiles.
-          Weather-sensitive formula profiles such as COMM6VA are omitted here because they are not
-          simple hourly class shapes.{" "}
+          These profiles are settlement profiles, not measured data-centre profiles. COMM6VA is
+          omitted because Dominion publishes it as a weather-sensitive formula rather than a simple
+          hourly shape.{" "}
           <a href={profilesData.source.url} className="underline hover:text-gray-600" target="_blank" rel="noopener">
             Source
           </a>.
@@ -186,7 +185,7 @@ export default function UsLoadShapeChart() {
 
         <details className="mt-3 text-xs text-gray-500">
           <summary className="cursor-pointer font-semibold text-gray-600">
-            What do these Dominion profile classes mean?
+            What are these Dominion classes?
           </summary>
           <dl className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
             {PROFILE_EXPLANATIONS.map(([label, description]) => (
@@ -197,8 +196,8 @@ export default function UsLoadShapeChart() {
             ))}
           </dl>
           <p className="mt-2 text-gray-400">
-            The median option is the hour-by-hour median of GS3, GS4, LGEMLP, and MS after
-            normalising each class to its own annual mean.
+            The median option takes the hour-by-hour median of GS3, GS4, LGEMLP, and MS after each
+            class has been scaled to its own annual mean.
           </p>
         </details>
       </div>

@@ -25,10 +25,10 @@ const requests = [
     next: "Ask for anonymised hourly profiles analogous to the UKPN data-centre profile release.",
   },
   {
-    need: "Latest PJM demand denominator",
+    need: "Latest PJM demand comparison",
     holder: "EIA Balancing Authority Areas hourly data",
     status: "Wired",
-    next: "Let the scheduled EIA refresh populate the static cache; label as latest-reported, not live.",
+    next: "Let the scheduled EIA refresh populate the static cache; keep it labelled as reported data, not live data.",
   },
 ];
 ---
@@ -39,8 +39,8 @@ const requests = [
       <div>
         <h2 class="text-xl font-semibold mb-1">Data request scoreboard</h2>
         <p class="text-sm text-gray-600 max-w-2xl leading-relaxed">
-          The estimate is useful, but the missing data is the real story. These are the records
-          that would most improve the DC + Mid-Atlantic index.
+          The estimate is only as good as the public record underneath it. These are the datasets
+          that would make the DC + Mid-Atlantic index much stronger.
         </p>
       </div>
       <a

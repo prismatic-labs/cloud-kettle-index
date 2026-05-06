@@ -135,7 +135,7 @@ export default function UkpnProfileChart() {
           <p className="text-xs text-gray-500 leading-relaxed max-w-2xl">
             Measured utilisation profiles from{" "}
             <strong className="text-gray-700">96 anonymised data-centre sites</strong>{" "}
-            in the UK Power Networks (UKPN) licence area — the distribution network covering
+            in the UK Power Networks (UKPN) licence area - the distribution network covering
             London, the South East, and the East of England. Profiles are derived from
             3.4 years of half-hourly readings (January 2023–April 2026). The y-axis shows
             relative load: 1.0 is each site&rsquo;s own average. Values above 1.0 mean
@@ -186,7 +186,7 @@ export default function UkpnProfileChart() {
         {/* Footnote */}
         <p className="text-xs text-gray-400 mt-2">
           Sites are anonymised; raw data is not exposed.
-          UKPN licence areas are not national GB coverage — profiles may differ elsewhere.
+          UKPN licence areas are not national GB coverage - profiles may differ elsewhere.
           National scale from NESO 2025; this chart shows shape only.
         </p>
       </div>

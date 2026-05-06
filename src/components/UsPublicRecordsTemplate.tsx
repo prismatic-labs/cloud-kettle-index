@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 
 type Tab = "virginia" | "federal" | "dc";
 
-const VIRGINIA_FULL = `Subject: FOIA Request: data-centre electricity demand, grid impacts, and planning documents — [County / locality name]
+const VIRGINIA_FULL = `Subject: FOIA Request: data-centre electricity demand, grid impacts, and planning documents - [County / locality name]
 
 Dear [public body / FOIA officer],
 
@@ -15,26 +15,26 @@ Please provide public records you hold concerning data-centre electricity demand
 With reasonable specificity, I am requesting records that may include:
 
 1. Electricity demand
-   — estimates or measurements of electricity demand from existing or proposed data centres
-   — peak demand, annual demand, load factor, or capacity assumptions
-   — demand forecasts that include data-centre growth
-   — assumptions used to model future electricity demand from data centres
+   - estimates or measurements of electricity demand from existing or proposed data centres
+   - peak demand, annual demand, load factor, or capacity assumptions
+   - demand forecasts that include data-centre growth
+   - assumptions used to model future electricity demand from data centres
 
 2. Grid and utility impacts
-   — applications, offers, or agreements for grid connection, and any supporting capacity assessments
-   — documents discussing local or regional transmission or distribution reinforcement required for data-centre load
-   — assessments of substation or feeder capacity linked to data-centre demand
-   — correspondence with Dominion Energy, NOVEC, other utilities, PJM Interconnection, FERC, the Virginia State Corporation Commission, county planning departments, or developers about data-centre electricity demand
+   - applications, offers, or agreements for grid connection, and any supporting capacity assessments
+   - documents discussing local or regional transmission or distribution reinforcement required for data-centre load
+   - assessments of substation or feeder capacity linked to data-centre demand
+   - correspondence with Dominion Energy, NOVEC, other utilities, PJM Interconnection, FERC, the Virginia State Corporation Commission, county planning departments, or developers about data-centre electricity demand
 
 3. Planning and land-use records
-   — planning applications, special-use permits, by-right data-centre approvals, or site plans for data-centre facilities
-   — staff reports, environmental review documents, transportation studies, or condition letters discussing energy use or grid impact
-   — comprehensive plan elements, proffer statements, overlay provisions, or economic-development documents that address data-centre electricity demand or grid infrastructure
+   - planning applications, special-use permits, by-right data-centre approvals, or site plans for data-centre facilities
+   - staff reports, environmental review documents, transportation studies, or condition letters discussing energy use or grid impact
+   - comprehensive plan elements, proffer statements, overlay provisions, or economic-development documents that address data-centre electricity demand or grid infrastructure
 
 4. Environmental and carbon assumptions
-   — estimates of greenhouse gas emissions associated with data-centre electricity use
-   — assumptions about carbon intensity, renewable energy supply, backup generation, or power purchase agreements
-   — any environmental impact assessments, air permit documents, or sustainability reports covering data-centre electricity demand
+   - estimates of greenhouse gas emissions associated with data-centre electricity use
+   - assumptions about carbon intensity, renewable energy supply, backup generation, or power purchase agreements
+   - any environmental impact assessments, air permit documents, or sustainability reports covering data-centre electricity demand
 
 Please provide records electronically. Where records are in tables or spreadsheets, CSV or Excel format is preferred. For reports, correspondence, or other documents, PDF is acceptable.
 
@@ -47,9 +47,9 @@ If you withhold any record under a VFOIA exemption, please cite the specific sta
 Respectfully,
 
 [Your name]
-[Contact information — an address or email is required]`;
+[Contact information - an address or email is required]`;
 
-const FEDERAL_FULL = `Subject: FOIA Request: data-centre electricity demand and grid-capacity data — [Agency name]
+const FEDERAL_FULL = `Subject: FOIA Request: data-centre electricity demand and grid-capacity data - [Agency name]
 
 Dear FOIA Officer,
 
@@ -60,20 +60,20 @@ I request all non-exempt records concerning data-centre electricity demand, grid
 Relevant categories of records may include:
 
 1. Electricity demand and load data
-   — surveys, estimates, reports, or analyses of data-centre electricity consumption at regional or national level
-   — grid-impact assessments, interconnection studies, or transmission-planning documents that address data-centre load
-   — agency correspondence, briefings, or memoranda discussing data-centre electricity demand
+   - surveys, estimates, reports, or analyses of data-centre electricity consumption at regional or national level
+   - grid-impact assessments, interconnection studies, or transmission-planning documents that address data-centre load
+   - agency correspondence, briefings, or memoranda discussing data-centre electricity demand
 
 2. Energy planning and forecasting
-   — assumptions used in energy forecasting that include data-centre growth
-   — reports or analyses examining the relationship between AI infrastructure, cloud computing, and electricity demand
-   — correspondence with electric utilities, ISOs/RTOs, or industry groups about data-centre grid impacts
+   - assumptions used in energy forecasting that include data-centre growth
+   - reports or analyses examining the relationship between AI infrastructure, cloud computing, and electricity demand
+   - correspondence with electric utilities, ISOs/RTOs, or industry groups about data-centre grid impacts
 
 Relevant agencies and offices may include:
-   — U.S. Department of Energy (DOE) / Energy Information Administration (EIA)
-   — Federal Energy Regulatory Commission (FERC)
-   — U.S. Environmental Protection Agency (EPA)
-   — Office of Science and Technology Policy (OSTP)
+   - U.S. Department of Energy (DOE) / Energy Information Administration (EIA)
+   - Federal Energy Regulatory Commission (FERC)
+   - U.S. Environmental Protection Agency (EPA)
+   - Office of Science and Technology Policy (OSTP)
 
 Please provide records electronically. If any records are withheld, please cite the exemption claimed and provide a Vaughn index.
 
@@ -84,7 +84,7 @@ Yours faithfully,
 [Your name]
 [Contact information]`;
 
-const DC_FULL = `Subject: FOIA Request: data-centre electricity demand and grid-capacity records — DC
+const DC_FULL = `Subject: FOIA Request: data-centre electricity demand and grid-capacity records - DC
 
 Dear FOIA Officer,
 
@@ -93,10 +93,10 @@ This is a request under the DC Freedom of Information Act (D.C. Code § 2-531 et
 I request all public records held by [agency / office name] concerning data-centre electricity demand, grid capacity, planning decisions, or energy infrastructure affecting the District of Columbia.
 
 Records requested may include:
-   — documents discussing the electricity demand or grid impact of existing or proposed data centres
-   — correspondence with Pepco (Potomac Electric), PJM Interconnection, or FERC about DC-area grid capacity or data-centre load
-   — planning documents, permits, or environmental reviews that reference data-centre energy use
-   — any studies, reports, or analyses of data-centre electricity demand or growth in the DC area
+   - documents discussing the electricity demand or grid impact of existing or proposed data centres
+   - correspondence with Pepco (Potomac Electric), PJM Interconnection, or FERC about DC-area grid capacity or data-centre load
+   - planning documents, permits, or environmental reviews that reference data-centre energy use
+   - any studies, reports, or analyses of data-centre electricity demand or growth in the DC area
 
 Note: under DC FOIA, agencies are not required to create records or provide analysis that does not already exist. I am requesting records that are already held.
 

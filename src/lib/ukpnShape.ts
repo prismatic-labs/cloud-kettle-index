@@ -2,7 +2,7 @@ import profiles from "../data/ukpn-derived-load-shapes.json";
 
 type DayType = "weekday" | "saturday" | "sunday" | "bank_holiday";
 
-// England & Wales bank holidays — extend as needed
+// England & Wales bank holidays - extend as needed
 const BANK_HOLIDAYS = new Set([
   "2023-01-02","2023-04-07","2023-04-10","2023-05-01","2023-05-08",
   "2023-05-29","2023-08-28","2023-12-25","2023-12-26",

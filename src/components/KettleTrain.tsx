@@ -46,7 +46,7 @@ export default function KettleTrain() {
         ].join(" ")}
         title="Click for a one-second explanation"
       >
-        {/* Kettle silhouette SVG — also subtly reads as a steam train from the side */}
+        {/* Kettle silhouette SVG - also subtly reads as a steam train from the side */}
         <svg
           width="56"
           height="40"
@@ -84,7 +84,7 @@ export default function KettleTrain() {
           className="text-xs text-gray-500 text-center max-w-[180px] leading-tight"
           aria-live="assertive"
         >
-          Choo choo — that&rsquo;s one second of modelled data-centre load.
+          Choo choo - that&rsquo;s one second of modelled data-centre load.
         </p>
       )}
 

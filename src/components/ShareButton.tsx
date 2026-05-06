@@ -58,7 +58,7 @@ export default function ShareButton({ label, generatePayload, linkedInUrl }: Pro
 
       <span aria-hidden="true" className="text-gray-200">·</span>
 
-      {/* LinkedIn share — opens LinkedIn compose with URL pre-loaded */}
+      {/* LinkedIn share - opens LinkedIn compose with URL pre-loaded */}
       <a
         href={linkedInUrl ?? LI_URL}
         target="_blank"
@@ -71,13 +71,13 @@ export default function ShareButton({ label, generatePayload, linkedInUrl }: Pro
 
       <span aria-hidden="true" className="text-gray-200">·</span>
 
-      {/* Instagram — no web share URL exists; download the OG image to post manually */}
+      {/* Instagram - no web share URL exists; download the OG image to post manually */}
       <a
         href={OG_PATH}
         download="cloud-kettle-index.png"
         className="text-gray-400 hover:text-gray-600 underline underline-offset-2"
         aria-label="Download image to share on Instagram"
-        title="Download the card image — paste your caption from the clipboard"
+        title="Download the card image - paste your caption from the clipboard"
       >
         Save image
       </a>

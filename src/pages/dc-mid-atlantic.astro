@@ -31,7 +31,7 @@ const avgMw   = roundMw(primary.averageContinuousMw);
 ---
 
 <BaseLayout
-  title="DC + Mid-Atlantic — Cloud Kettle Index"
+  title="DC + Mid-Atlantic - Cloud Kettle Index"
   description="Dominion Energy Virginia data-centre billing demand translated into kettle-boils per second. A Northern Virginia / DC-area cloud-load proxy by Prismatic Labs."
   canonicalUrl={`https://prismatic-labs.github.io${pageUrl}`}
   currentRegion="dc-mid-atlantic"
@@ -51,10 +51,10 @@ const avgMw   = roundMw(primary.averageContinuousMw);
       readers because Northern Virginia is the region's dominant cloud-infrastructure cluster.
     </p>
 
-    <!-- Hero metric — matches DemandShare layout on GB page -->
+    <!-- Hero metric - matches DemandShare layout on GB page -->
     <div class="mb-8">
       <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">
-        Northern Virginia cloud-load proxy — {primary.label}
+        Northern Virginia cloud-load proxy - {primary.label}
       </p>
       <div class="flex items-center gap-2 mt-1 flex-wrap">
         <span class="text-3xl font-bold tabular-nums text-[var(--color-accent)]">
@@ -71,7 +71,7 @@ const avgMw   = roundMw(primary.averageContinuousMw);
 
     <p class="mt-6 text-sm text-slate-600 border-l-2 border-slate-300 pl-3 leading-relaxed max-w-xl">
       The published demand data is public. Measured load is not.
-      This page uses the best available proxy sources. &mdash;
+      This page uses the best public proxy sources. -
       <a href={`${base}/methodology`} class="underline text-slate-600">Full methodology</a>
     </p>
 
@@ -88,7 +88,7 @@ const avgMw   = roundMw(primary.averageContinuousMw);
           {region.modelScope}{" "}
           Dominion reports an industry load factor of approximately 90%, implying roughly
           {avgMw}&nbsp;MW average continuous draw (~{avgKbs}&nbsp;kbs).
-          The headline uses billing demand because that is what Dominion publishes.
+          The headline uses billing demand because that is the public series Dominion provides.
         </p>
         <p>
           <a href={`${base}/methodology`} class="underline font-medium text-gray-600 hover:text-gray-900">
@@ -101,16 +101,16 @@ const avgMw   = roundMw(primary.averageContinuousMw);
 
   </section>
 
-  <!-- Source trail — early provenance, before interpretation -->
+  <!-- Source trail - early provenance, before interpretation -->
   <UsSourceStrip />
 
-  <!-- Caveats — right after the hero metric, before the charts -->
+  <!-- Caveats - right after the hero metric, before the charts -->
   <section class="max-w-4xl mx-auto px-4 pb-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
       <div class="border-l-4 border-amber-300 bg-amber-50 px-4 py-3 space-y-1.5">
         <h2 class="text-sm font-semibold">Billing demand, not metered load</h2>
         <p class="text-sm text-gray-700 leading-relaxed">
-          {heroMw}&nbsp;MW is Dominion's {primary.label} data-centre billing demand —
+          {heroMw}&nbsp;MW is Dominion's {primary.label} data-centre billing demand -
           used for tariff calculations, not measured grid draw.
           Dominion separately derives coincident (metered) demand, which is generally lower.
           At ~90% load factor, average continuous draw is roughly {avgMw}&nbsp;MW (~{avgKbs}&nbsp;kbs).
@@ -119,10 +119,10 @@ const avgMw   = roundMw(primary.averageContinuousMw);
       <div class="border border-gray-200 rounded-lg px-4 py-3">
         <h2 class="text-sm font-semibold text-gray-700 mb-2">What this is not</h2>
         <ul class="text-xs text-gray-600 space-y-1 list-none p-0 m-0">
-          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>Data centres physically inside DC.</span></li>
-          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>Total PJM data-centre load (13 states + DC).</span></li>
-          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>A full Northeast model (PJM + NYISO + ISO-NE).</span></li>
-          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>Live grid demand — modelled estimates only.</span></li>
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">-</span><span>Data centres physically inside DC.</span></li>
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">-</span><span>Total PJM data-centre load (13 states + DC).</span></li>
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">-</span><span>A full Northeast model (PJM + NYISO + ISO-NE).</span></li>
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">-</span><span>Live grid demand - modelled estimates only.</span></li>
         </ul>
       </div>
     </div>
@@ -163,8 +163,8 @@ const avgMw   = roundMw(primary.averageContinuousMw);
     <div class="mb-3">
       <h2 class="text-lg font-semibold mb-1">Latest-reported PJM grid context</h2>
       <p class="text-sm text-gray-500 max-w-2xl leading-relaxed">
-        This comparison keeps the Dominion data-centre numerator fixed and lets the wider PJM
-        demand denominator move. It is useful context, not a Dominion-zone meter.
+        Here the Dominion data-centre estimate stays fixed while total PJM demand moves through
+        the day. It is regional context, not a Dominion-zone meter.
       </p>
     </div>
     <UsGridShareChart primary={primary} />
@@ -177,10 +177,9 @@ const avgMw   = roundMw(primary.averageContinuousMw);
     <div class="max-w-2xl">
       <h2 class="text-sm font-semibold text-gray-700 mb-2">Future expansion</h2>
       <p class="text-sm text-gray-500 leading-relaxed">
-        A fuller Northeast version would need separate treatment for PJM, NYISO, and ISO-NE.
-        A future PJM comparison could add Dominion-zone demand (via EIA sub-BA data) as a better
-        grid-share denominator than PJM total, and latest-reported values properly labelled as
-        delayed, not live.
+        A fuller Northeast version would need separate treatment for PJM, NYISO, and ISO-NE. A
+        future PJM comparison could use Dominion-zone demand, if a reliable public series is
+        available, instead of PJM total.
       </p>
     </div>
   </section>

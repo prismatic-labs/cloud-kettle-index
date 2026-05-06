@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { nationalModel, NESO_AVERAGE_KBS, NESO_AVERAGE_MW } from "../lib/dcModel";
 
-// Read bundled font files from @fontsource/inter — no network dependency at build time
+// Read bundled font files from @fontsource/inter - no network dependency at build time
 function loadBundledFont(weight: "400" | "700"): ArrayBuffer {
   const p = resolve(`node_modules/@fontsource/inter/files/inter-latin-${weight}-normal.woff`);
   const buf = readFileSync(p);
