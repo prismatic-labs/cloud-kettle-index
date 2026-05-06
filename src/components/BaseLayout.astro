@@ -1,21 +1,25 @@
 ---
 import "../styles/global.css";
+import RegionTabs from "./RegionTabs.astro";
 
 interface Props {
   title: string;
   description?: string;
   canonicalUrl?: string;
+  currentRegion?: "gb" | "dc-mid-atlantic";
 }
 
 const {
   title,
   description = "Britain's data-centre electricity load, translated into kettle-boils per second. A modelled estimate by Prismatic Labs.",
   canonicalUrl,
+  currentRegion,
 } = Astro.props;
 
 const base   = import.meta.env.BASE_URL.replace(/\/$/, "");
 const siteUrl = (Astro.site?.toString().replace(/\/$/, "") ?? "https://prismatic-labs.github.io") + base;
 const ogImage = `${siteUrl}/og.png`;
+const openDataHref = currentRegion === "dc-mid-atlantic" ? `${base}/records-us` : `${base}/eir`;
 ---
 
 <!doctype html>
@@ -61,11 +65,13 @@ const ogImage = `${siteUrl}/og.png`;
           <ul class="flex gap-6 text-sm list-none m-0 p-0">
             <li><a href={`${base}/methodology`} class="text-[var(--color-muted)] hover:text-[var(--color-text)]">Methodology</a></li>
             <li><a href={`${base}/about`} class="text-[var(--color-muted)] hover:text-[var(--color-text)]">About</a></li>
-            <li><a href={`${base}/eir`} class="text-[var(--color-muted)] hover:text-[var(--color-text)]">Help make the data open</a></li>
+            <li><a href={openDataHref} class="text-[var(--color-muted)] hover:text-[var(--color-text)]">Help make the data open</a></li>
           </ul>
         </nav>
       </div>
     </header>
+
+    {currentRegion && <RegionTabs current={currentRegion} />}
 
     <main>
       <slot />
@@ -73,17 +79,28 @@ const ogImage = `${siteUrl}/og.png`;
 
     <footer class="border-t border-[var(--color-border)] mt-16 py-8 text-sm text-[var(--color-muted)]">
       <div class="max-w-4xl mx-auto px-4 space-y-2">
-        <p>
-          This site covers <strong>Great Britain</strong> only (England, Scotland, Wales).
-          Northern Ireland operates a separate electricity system managed by SONI and is not included.
-        </p>
-        <p>
-          Built by <a href="https://github.com/prismatic-labs">Prismatic Labs</a>.
-          Data: <a href="https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024">DSIT 2024</a>,
-          <a href="https://developer.elexon.co.uk">Elexon BMRS</a>,
-          <a href="https://api.carbonintensity.org.uk">Carbon Intensity API</a>.
-          See <a href="https://github.com/prismatic-labs/vetch">vetch</a> — open-source LLM inference energy measurement.
-        </p>
+        {currentRegion === "gb" || !currentRegion ? (
+          <>
+            <p>
+              The Great Britain page covers <strong>England, Scotland, and Wales</strong>.
+              Northern Ireland operates a separate electricity system managed by SONI and is not included.
+            </p>
+            <p>
+              Built by <a href="https://github.com/prismatic-labs">Prismatic Labs</a>.
+              GB data: <a href="https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024">DSIT 2024</a>,
+              <a href="https://developer.elexon.co.uk">Elexon BMRS</a>,
+              <a href="https://api.carbonintensity.org.uk">Carbon Intensity API</a>.
+              See <a href="https://github.com/prismatic-labs/vetch">vetch</a> — open-source LLM inference energy measurement.
+            </p>
+          </>
+        ) : (
+          <p>
+            Built by <a href="https://github.com/prismatic-labs">Prismatic Labs</a>.
+            US data: <a href="https://www.in.gov/iurc/files/1.-Data-Center-Forecasting.pdf">Dominion Energy Virginia 2025 data-centre forecasting presentation</a> (Indiana IURC filing);
+            <a href="https://www.pjm.com/-/media/DotCom/committees-groups/subcommittees/las/2025/20250916/20250916-item-04ai---dominion-data-center-large-load-request.pdf">PJM Dominion data-centre large load request</a> (PJM LAS, September 2025).
+            See <a href="https://github.com/prismatic-labs/vetch">vetch</a> — open-source LLM inference energy measurement.
+          </p>
+        )}
         <p>Apache 2.0 &mdash; <a href="https://github.com/prismatic-labs/cloud-kettle-index">source on GitHub</a></p>
       </div>
     </footer>

@@ -15,23 +15,27 @@ If relevant, this request includes information relating to [data-centre site or 
 Please include any recorded information you hold on:
 
 1. Electricity demand
+
 - estimated or measured electricity demand from existing or proposed data centres
 - peak demand, annual demand, load factor, or capacity assumptions
 - demand forecasts that include data-centre growth
 - assumptions used to model future electricity demand from data centres
 
 2. Grid impacts and connection capacity
+
 - grid connection applications, offers, agreements, or capacity assessments, where held
 - documents discussing whether local or regional grid reinforcement is needed
 - assessments of substation, transmission, or distribution capacity linked to data-centre demand
 - correspondence with network operators, regulators, government departments, developers, or consultants about data-centre electricity demand
 
 3. Planning and infrastructure evidence
+
 - planning documents, officer reports, environmental statements, energy statements, or sustainability statements that refer to data-centre energy use
 - internal briefings, reports, meeting notes, or presentations discussing the electricity demand or grid impact of data centres
 - policy documents, local plans, infrastructure delivery plans, or economic-development documents that consider data-centre energy demand
 
 4. Environmental and carbon assumptions
+
 - estimates of emissions associated with data-centre electricity use
 - assumptions about carbon intensity, renewable supply, backup generation, or power purchase agreements
 - assessments of how data-centre demand affects local, regional, or national energy planning

@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
+    "refresh:us-grid": "node --experimental-strip-types scripts/fetch-us-grid-demand.ts",
     "verify:data": "node --experimental-strip-types scripts/verify-dsit.ts"
   },
   "dependencies": {

@@ -15,7 +15,37 @@ import BaseLayout from "../components/BaseLayout.astro";
       Last updated May 2026. <a href="https://github.com/prismatic-labs/cloud-kettle-index/blob/main/METHODOLOGY.md">View on GitHub</a>
     </p>
 
-    <section class="mb-10">
+    <nav aria-label="On this page" class="mb-10 border border-gray-200 rounded px-5 py-4 bg-gray-50 not-prose">
+      <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">On this page</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-0.5 text-sm">
+        <div>
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mt-2 mb-1">Great Britain</p>
+          <ul class="space-y-0.5 list-none p-0 m-0">
+            <li><a href="#what-this-site-does" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">What this site does</a></li>
+            <li><a href="#kettle-boil-unit" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">The kettle-boil unit</a></li>
+            <li><a href="#dual-baseline-model" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">The dual-baseline model</a></li>
+            <li><a href="#data-sources" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">Data sources</a></li>
+            <li><a href="#geographic-scope" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">Geographic scope</a></li>
+            <li><a href="#postcode-lookup" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">Postcode lookup</a></li>
+            <li><a href="#limitations" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">Limitations</a></li>
+            <li><a href="#what-this-site-does-not-claim" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">What this site does not claim</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mt-2 mb-1">DC + Mid-Atlantic</p>
+          <ul class="space-y-0.5 list-none p-0 m-0">
+            <li><a href="#dc-mid-atlantic-methodology" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">DC + Mid-Atlantic methodology</a></li>
+            <li><a href="#national-us-context" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">National US context</a></li>
+          </ul>
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mt-3 mb-1">Both</p>
+          <ul class="space-y-0.5 list-none p-0 m-0">
+            <li><a href="#improvements" class="text-gray-600 hover:text-gray-900 underline underline-offset-2">What would make this better</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section id="what-this-site-does" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">What this site does</h2>
       <p>
         The Cloud Kettle Index estimates GB data-centre electricity demand and expresses it as
@@ -30,7 +60,7 @@ import BaseLayout from "../components/BaseLayout.astro";
       </p>
     </section>
 
-    <section class="mb-10">
+    <section id="kettle-boil-unit" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">The kettle-boil unit</h2>
       <p>
         One kettle-boil is defined as <strong>0.1 kWh</strong> — the energy a 3&nbsp;kW electric kettle
@@ -51,7 +81,7 @@ kettle-boils per second = facility load (MW) ÷ 0.36</pre>
       </p>
     </section>
 
-    <section class="mb-10">
+    <section id="dual-baseline-model" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">The dual-baseline model</h2>
       <p>
         We cannot directly measure live data-centre electricity demand. The model combines two
@@ -131,7 +161,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
       </p>
     </section>
 
-    <section class="mb-10">
+    <section id="data-sources" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">Data sources</h2>
       <dl class="space-y-5">
 
@@ -218,7 +248,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
       </dl>
     </section>
 
-    <section class="mb-10">
+    <section id="geographic-scope" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">Geographic scope: Great Britain, not the United Kingdom</h2>
       <p>
         Elexon and the Carbon Intensity API cover <strong>Great Britain</strong> (England, Scotland, Wales).
@@ -228,7 +258,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
       </p>
     </section>
 
-    <section class="mb-10">
+    <section id="postcode-lookup" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">Postcode lookup</h2>
       <p>
         The postcode lookup uses postcodes.io to derive an ITL1/NUTS1 region code, then applies the same
@@ -247,7 +277,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
       </p>
     </section>
 
-    <section class="mb-10">
+    <section id="limitations" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">Limitations and known assumptions</h2>
       <ul class="space-y-2 text-sm list-disc list-outside pl-5">
         <li>
@@ -276,7 +306,7 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
       </ul>
     </section>
 
-    <section class="mb-10">
+    <section id="what-this-site-does-not-claim" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">What this site does not claim</h2>
       <ul class="space-y-2 text-sm list-disc list-outside pl-5">
         <li>It does not claim to show live metered data-centre electricity demand.</li>
@@ -289,19 +319,157 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
       </ul>
     </section>
 
-    <section class="mb-10">
+    <section id="dc-mid-atlantic-methodology" class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">DC + Mid-Atlantic page methodology</h2>
+      <p>
+        The DC + Mid-Atlantic page uses a different model from the GB page. The core data-centre
+        load estimate is not constructed from IT capacity assumptions; it comes directly from
+        Dominion Energy Virginia&rsquo;s own published billing-demand forecasts.
+      </p>
+
+      <h3 class="font-semibold mt-5 mb-2">Sources</h3>
+      <p class="text-sm text-gray-600">
+        <a href="https://www.in.gov/iurc/files/1.-Data-Center-Forecasting.pdf"
+           target="_blank" rel="noopener" class="font-semibold underline">
+          Dominion Energy Virginia 2025 data-centre forecasting presentation
+        </a>
+        (Indiana Utility Regulatory Commission filing, 2025) and
+        <a href="https://www.pjm.com/-/media/DotCom/committees-groups/subcommittees/las/2025/20250916/20250916-item-04ai---dominion-data-center-large-load-request.pdf"
+           target="_blank" rel="noopener" class="font-semibold underline">
+          PJM Dominion data-centre large load request
+        </a>
+        (PJM Load Analysis Subcommittee, September 2025). Both provide year-by-year
+        data-centre billing demand for Dominion&rsquo;s Virginia service territory: 2024 actual
+        (~3,584&nbsp;MW), 2025 forecast (~4,149&nbsp;MW), and annual projections through
+        2030 (~6,992&nbsp;MW). The 2026 projection is used as the primary DC + Mid-Atlantic page figure. Dominion also states
+        an industry load factor of approximately 90%.
+      </p>
+
+      <h3 class="font-semibold mt-5 mb-2">Why UTILISATION &times; PUE is not applied</h3>
+      <p class="text-sm text-gray-600">
+        The GB model applies capacity-utilisation and Power Usage Effectiveness (PUE) assumptions
+        to DSIT&rsquo;s <em>IT capacity</em> figure to estimate total facility electricity demand.
+        That step is necessary because DSIT reports IT load, not facility draw.
+        Dominion&rsquo;s billing-demand figures are already power demand — the grid draw in MW.
+        Applying utilisation and PUE again would double-count. The conversion used is simply:
+      </p>
+      <pre class="bg-gray-50 border border-gray-200 rounded p-4 text-sm overflow-x-auto mt-2">
+kbs = billing_demand_mw / 0.36</pre>
+
+      <h3 class="font-semibold mt-5 mb-2">Billing demand vs average continuous load</h3>
+      <p class="text-sm text-gray-600">
+        Dominion&rsquo;s billing demand figure represents peak or contracted demand used for
+        utility tariff calculations, not average energy use or coincident grid peak. Dominion
+        separately derives <em>coincident demand</em> &mdash; the actual grid draw at the moment
+        of system peak &mdash; from its billing-demand forecasts; coincident demand is generally
+        somewhat lower. Dominion reports an industry load factor of approximately 90%, implying
+        that data centres draw close to their billing demand on average, but the figures are not
+        identical. The headline kettle-boils/sec figure on the DC page translates billing demand
+        directly as a power-rate comparison, not an annual-average energy estimate.
+        Average continuous draw can be estimated as billing demand &times;&nbsp;0.90, yielding
+        approximately 4,280&nbsp;MW (~11,900&nbsp;kbs) for the 2026 projection.
+      </p>
+
+      <h3 class="font-semibold mt-5 mb-2">Why Northern Virginia / Dominion zone for a DC-area estimate</h3>
+      <p class="text-sm text-gray-600">
+        I could not identify a public data-centre load figure for the District of Columbia itself.
+        Northern Virginia — primarily Loudoun, Fairfax, and Prince William counties — is reported by JLARC (2024) as
+        representing roughly 13% of global data-centre operational capacity and 25% of Americas
+        capacity. It sits within Dominion Energy Virginia&rsquo;s service territory and powers much
+        of the cloud infrastructure used in and around Washington, DC. The Dominion service-territory
+        billing demand is the most concrete and well-sourced proxy used here for a DC-area cloud-load
+        estimate. Note: the scientific scope of this page is the Dominion Virginia service territory,
+        not Northern Virginia counties alone; &ldquo;DC + Mid-Atlantic&rdquo; is reader framing
+        reflecting where this load is most relevant.
+      </p>
+
+      <h3 class="font-semibold mt-5 mb-2">What the DC + Mid-Atlantic estimate is not</h3>
+      <ul class="space-y-2 text-sm list-disc list-outside pl-5">
+        <li>A measurement of data centres physically inside Washington, DC.</li>
+        <li>Total PJM Interconnection data-centre load (PJM covers 13 states and the District of Columbia).</li>
+        <li>A full Northeast model — PJM, NYISO, and ISO-NE would each require separate treatment.</li>
+        <li>A live grid demand share — this page shows modelled billing-demand estimates only.</li>
+      </ul>
+
+      <h3 class="font-semibold mt-5 mb-2">Intraday load shaping</h3>
+      <p class="text-sm text-gray-600">
+        The DC + Mid-Atlantic page includes a shape-only intraday comparison. I could not
+        identify a public data-centre-specific half-hourly load profile analogous to UKPN&rsquo;s
+        dataset for the Northern Virginia region. The chart therefore keeps two things separate:
+        a conservative synthetic data-centre daily shape anchored to Dominion&rsquo;s approximately
+        90% industry load-factor context, and generic Dominion Energy Virginia customer-class
+        hourly profiles for selected large-customer classes (GS3, GS4, LGEMLP, and MS). Those
+        Dominion profiles are real utility settlement/load-research profiles, but they are not
+        data-centre-specific and are used only as context. COMM6VA is omitted because Dominion
+        publishes it as a weather-sensitive formula table rather than a simple hourly profile.
+      </p>
+
+      <h3 class="font-semibold mt-5 mb-2">Latest-reported PJM grid demand comparison</h3>
+      <p class="text-sm text-gray-600">
+        The GB page shows a live &ldquo;share of GB demand&rdquo; metric using Elexon&rsquo;s
+        public half-hourly demand API. The DC + Mid-Atlantic page includes the closest
+        static-site equivalent: a latest-reported PJM demand comparison using EIA Balancing
+        Authority Areas hourly operating data. The numerator is still modelled Dominion
+        data-centre billing demand; the denominator is PJM balancing-authority demand. This is
+        not live data-centre load, not Dominion-zone load, and not county-level demand. EIA data
+        can lag, so the page labels this as latest-reported grid context rather than live demand.
+      </p>
+    </section>
+
+    <section id="national-us-context" class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">National US context</h2>
+      <p class="text-sm text-gray-600 mb-3">
+        For broader national context on US data-centre electricity use, the following sources
+        are relevant but are not used as model inputs for this site:
+      </p>
+      <ul class="space-y-3 text-sm text-gray-600 list-disc list-outside pl-5">
+        <li>
+          <strong>
+            <a href="https://buildings.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report"
+               class="underline hover:text-gray-900" target="_blank" rel="noopener">
+              LBNL 2024 US Data Center Energy Usage Report
+            </a>
+          </strong>
+          (Lawrence Berkeley National Laboratory / DOE, 2024). The closest US analogue to a
+          national baseline, estimating total US data-centre electricity consumption and
+          projecting significant growth. DOE has separately noted that data-centre load could
+          double or triple by 2028.
+        </li>
+        <li>
+          <strong>
+            <a href="https://www.globenewswire.com/news-release/2026/02/26/3245491/0/en/epri-data-centers-could-consume-up-to-17-of-u-s-electricity-by-2030.html"
+               class="underline hover:text-gray-900" target="_blank" rel="noopener">
+              EPRI 2026 data-centre electricity analysis
+            </a>
+          </strong>
+          (Electric Power Research Institute, 2026). Estimates data centres could consume 9–17%
+          of US electricity by 2030, using state-level capacity data. This is a scenario/forward
+          projection, not a measured load figure, and should be read as a range of possible
+          futures rather than a near-term demand estimate.
+        </li>
+      </ul>
+      <p class="text-xs text-gray-400 mt-3">
+        Neither the LBNL report nor the EPRI analysis is used as a model input in this site.
+        They are cited as context only.
+      </p>
+    </section>
+
+    <section id="improvements" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">What would make this estimate better</h2>
       <ul class="space-y-2 text-sm list-disc list-outside pl-5">
         <li><strong>Site-level disclosure from operators.</strong> If major data-centre operators published their grid connection utilisation at half-hourly resolution, we could replace the scenario model with measured demand. Several European jurisdictions are moving towards mandatory reporting.</li>
         <li><strong>National-scale measured data-centre load profiles.</strong> UKPN's half-hourly anonymised load shapes exist but require registration. An openly licensed national equivalent would allow the modelled band to be replaced by a real time series.</li>
         <li><strong>Updated DSIT capacity estimates.</strong> The current dataset is autumn 2024. Annual updates at regional and sub-regional level would reduce the uncertainty in the capacity figure.</li>
+        <li><strong>US county-level or zone-level demand data.</strong> No source used here provides public data-centre-specific load figures at county or PJM-zone level for Northern Virginia. Regulatory filings, Virginia SCC dockets, and county planning records may hold better evidence.</li>
       </ul>
       <p class="text-sm text-gray-600 mt-4">
-        Public authorities may already hold relevant evidence &mdash; demand forecasts,
-        planning documents, grid-impact assessments, and connection assumptions. You can
-        ask for it using an Environmental Information Request.
-        <a href="../eir" class="underline font-medium hover:text-gray-900">Create an EIR &rarr;</a>
+        Public authorities may already hold relevant evidence — demand forecasts,
+        planning documents, grid-impact assessments, and connection assumptions.
       </p>
+      <div class="flex flex-wrap gap-4 mt-3">
+        <a href="../eir" class="text-sm underline font-medium hover:text-gray-900">UK EIR templates &rarr;</a>
+        <a href="../records-us" class="text-sm underline font-medium hover:text-gray-900">US FOIA / public records templates &rarr;</a>
+      </div>
     </section>
 
   </article>

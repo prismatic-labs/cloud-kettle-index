@@ -1,0 +1,206 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+
+const contextPaths = [
+  "M233.1 239.4 L230.6 258.6 L239.7 268.9 L256.2 263.3 L265.1 260.7 L276.2 256.8 L279 261.2 L283.9 275.2 L293.9 281.9 L304.7 289.9 L311.7 291.9 L303.4 267.2 L322.7 244.2 L340.3 246.7 L340.1 239.9 L327.8 235.5 L326.6 224.7 L304.9 216.9 L277.2 218.1 L270.3 224.8 L263.2 208.1 L254.5 214 L254.9 221.3 L255.1 225.2 L244.8 227.7 L233.1 239.4 Z",
+  "M152.3 93.4 L154.5 93.5 L169.1 96.4 L175.7 100.6 L186.2 105.9 L193.1 111.9 L247.7 86.7 L247.8 86.6 L251.6 74.6 L254.1 72.1 L259.3 60.8 L241.8 44.5 L220.9 33.3 L238.6 18 L234.3 18 L193.3 18 L191.4 18 L172.5 36.8 L152.3 93.4 Z",
+  "M247.7 86.7 L244.3 89.4 L252.2 97.7 L277.5 114.2 L286.2 125.6 L287 127.8 L300.2 128.4 L309.2 133.6 L318.8 129.2 L321.1 124.7 L331.4 118.6 L336 112.8 L330.2 109.9 L317.9 94.2 L301.3 87.3 L284.9 84.7 L280.7 85.5 L260.3 83.7 L247.8 86.6 L247.7 86.7 Z",
+  "M181.6 122.8 L181.9 130.3 L189.1 133.1 L192.6 138.6 L211.9 141.3 L215 141.9 L217.4 142.4 L221.1 143.2 L232.7 147.9 L232.5 155.6 L241.3 158.9 L245.5 159.2 L251.8 159.6 L256.8 165.2 L256.8 165.2 L271.6 153.8 L278.8 159.4 L285.2 148.6 L285.2 148.6 L285.4 148.3 L289.3 143.1 L296.6 130.8 L300.2 128.4 L287 127.8 L286.2 125.6 L277.5 114.2 L252.2 97.7 L244.3 89.4 L247.7 86.7 L193.1 111.9 L193.1 112 L188.2 118.1 L181.6 122.8 Z",
+  "M264.4 207.3 L263.2 208.1 L270.3 224.8 L277.2 218.1 L304.9 216.9 L326.6 224.7 L327.8 235.5 L340.1 239.9 L335.1 207.1 L338 200 L333.5 187.4 L341.1 170.4 L335.8 156 L325.9 146.4 L309.9 140.1 L309.2 133.6 L300.2 128.4 L296.6 130.8 L289.3 143.1 L285.4 148.3 L285.2 148.6 L285.2 148.6 L278.8 159.4 L296.2 173 L283.1 183.3 L272 192 L271.9 193.1 L271.7 200.4 L271.6 202 L269.3 207.3 L264.4 207.3 Z",
+  "M247 172.9 L251.2 176.2 L258.5 182.3 L262.8 185.3 L272 182.7 L271.9 177.6 L262.4 170.9 L256.8 165.2 L256.8 165.2 L247 172.9 Z",
+  "M80.3 173.2 L67.5 178.2 L86 191.6 L92.8 207.2 L104.1 209.9 L115 230.7 L141.5 262.9 L160.3 263.4 L160.5 252.9 L179.7 236 L170.7 222.7 L145.2 184.4 L156.5 163.7 L99 150.4 L91.1 156.8 L80.3 173.2 Z",
+  "M101.9 317.8 L122.2 320.4 L150.5 338.8 L158.9 342 L209.9 294.1 L206.1 294.2 L195.5 286.9 L194.1 287.1 L194.9 288.8 L193.6 289.4 L191.9 287.8 L190.5 289.6 L186.6 288.9 L186 287.2 L183.4 287.8 L184.1 285.5 L182.3 284.5 L182.6 282.9 L179.5 282.5 L179.9 282.3 L166.2 277.8 L163.4 271.3 L158.3 269.4 L147.6 272.6 L145.3 277.4 L101.9 317.8 Z",
+  "M160.5 252.9 L160.3 263.4 L163.4 271.3 L166.2 277.8 L179.9 282.3 L180.7 282.3 L180.5 280.2 L184.9 279.1 L189.5 280.9 L190.3 280.1 L191.7 280.5 L193.9 283.8 L195.5 286.9 L206.1 294.2 L209.9 294.1 L218.1 294.3 L217.4 277.7 L226 274.4 L219.8 268.4 L218.8 252.7 L220.7 246.2 L188 229.4 L179.7 236 L160.5 252.9 Z",
+  "M35.7 163.5 L18 186.1 L37.5 194.1 L38.6 198 L54.3 194.8 L67.5 178.2 L80.3 173.2 L91.1 156.8 L81.5 149.3 L63.5 146.1 L61.2 149.6 L33.1 151.4 L35.7 163.5 Z",
+  "M258.5 182.3 L252.4 189.3 L271.9 193.1 L272 192 L272 182.7 L262.8 185.3 L258.5 182.3 Z",
+  "M242.8 171.9 L243.7 172.7 L242.9 174.3 L243.7 175.8 L246.8 175.7 L249.6 176.7 L251.2 176.2 L247 172.9 L243.9 172.4 L242.8 171.9 Z",
+  "M180.6 202.9 L181.2 205.8 L184.4 208 L182.8 202.4 L191 203.9 L194.7 201.9 L193.3 195.6 L193.2 195.5 L193.2 195.5 L190.4 193.9 L190.2 193.9 L186.5 195.9 L180.6 202.9 Z",
+  "M190.2 193.9 L190.4 193.9 L193.2 195.5 L193.2 195.5 L193.3 195.6 L196.2 197.2 L196.6 199.8 L199.2 199.1 L200.7 196.1 L200.2 194.8 L197.9 194.4 L196.8 193.5 L195.9 195.9 L193.2 194.4 L193.4 192.8 L190.6 192.6 L190.2 193.9 Z",
+];
+
+const focusCounties = [
+  {
+    name: "Fairfax County",
+    d: "M186.2 174.1 L178.9 181.5 L196.2 189.7 L201.8 195.5 L202.2 200.8 L208 202.1 L210.1 207.2 L212 204.7 L217 206 L218.2 208.7 L234.4 215.4 L237.3 221.3 L254.9 221.3 L254.5 214 L263.2 208.1 L264.4 207.3 L269.3 207.3 L271.6 202 L271.7 200.4 L271.9 193.1 L252.4 189.3 L258.5 182.3 L251.2 176.2 L249.6 176.7 L246.8 175.7 L243.7 175.8 L242.9 174.3 L243.7 172.7 L242.8 171.9 L243.9 172.4 L247 172.9 L256.8 165.2 L251.8 159.6 L245.5 159.2 L241.3 158.9 L232.5 155.6 L232.7 147.9 L221.1 143.2 L217.4 142.4 L186.2 174.1 Z M219.6 183.9 L217.7 178.2 L228.7 178.1 L228.6 182.7 L223.7 183.7 L219.6 183.9 Z",
+  },
+  {
+    name: "Loudoun County",
+    d: "M117.6 137.8 L99 150.4 L156.5 163.7 L175.8 174.2 L176.5 181.7 L178.9 181.5 L186.2 174.1 L217.4 142.4 L215 141.9 L211.9 141.3 L192.6 138.6 L189.1 133.1 L181.9 130.3 L181.6 122.8 L188.2 118.1 L193.1 112 L193.1 111.9 L186.2 105.9 L175.7 100.6 L169.1 96.4 L154.5 93.5 L152.3 93.4 L144.5 92.7 L133.5 110 L127.7 121.3 L124.1 128.1 L124.1 128.1 L117.6 137.8 Z",
+  },
+  {
+    name: "Prince William County",
+    d: "M156.5 163.7 L145.2 184.4 L170.7 222.7 L179.7 236 L188 229.4 L220.7 246.2 L224 235 L233.1 221.3 L237.3 221.3 L234.4 215.4 L218.2 208.7 L217 206 L212 204.7 L210.1 207.2 L208 202.1 L202.2 200.8 L201.8 195.5 L196.2 189.7 L178.9 181.5 L176.5 181.7 L175.8 174.2 L156.5 163.7 Z M181.2 205.8 L180.6 202.9 L186.5 195.9 L190.2 193.9 L190.6 192.6 L193.4 192.8 L193.2 194.4 L195.9 195.9 L196.8 193.5 L197.9 194.4 L200.2 194.8 L200.7 196.1 L199.2 199.1 L196.6 199.8 L196.2 197.2 L193.3 195.6 L194.7 201.9 L191 203.9 L182.8 202.4 L184.4 208 L181.2 205.8 Z",
+  },
+];
+
+const secondaryCounties = [
+  {
+    name: "Arlington County",
+    d: "M242.8 171.9 L243.7 172.7 L242.9 174.3 L243.7 175.8 L246.8 175.7 L249.6 176.7 L251.2 176.2 L247 172.9 L243.9 172.4 L242.8 171.9 Z",
+  },
+];
+
+const dcPath = "M256.8 165.2 L262.4 170.9 L271.9 177.6 L272 182.7 L272 192 L283.1 183.3 L296.2 173 L278.8 159.4 L271.6 153.8 L256.8 165.2 Z";
+---
+
+{compact ? (
+<figure>
+  <svg
+    viewBox="0 0 640 360"
+    role="img"
+    aria-labelledby="dc-region-map-title-c dc-region-map-desc-c"
+    class="w-full h-auto rounded"
+  >
+    <title id="dc-region-map-title-c">Northern Virginia and Washington DC county locator map</title>
+    <desc id="dc-region-map-desc-c">
+      Census county-boundary map highlighting Loudoun, Fairfax, and Prince William counties, with the District of Columbia shown separately.
+    </desc>
+    <rect width="640" height="360" fill="#f8fafc" rx="10" />
+    {contextPaths.map(d => (
+      <path d={d} fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.2" />
+    ))}
+    {focusCounties.map(county => (
+      <path d={county.d} fill="#1f2937" stroke="#ffffff" stroke-width="1.6">
+        <title>{county.name}</title>
+      </path>
+    ))}
+    {secondaryCounties.map(county => (
+      <path d={county.d} fill="#64748b" stroke="#ffffff" stroke-width="1.4">
+        <title>{county.name}</title>
+      </path>
+    ))}
+    <path d={dcPath} fill="#fbbf24" stroke="#92400e" stroke-width="1.5">
+      <title>District of Columbia</title>
+    </path>
+    <g stroke-width="1.2" stroke-linecap="round">
+      <line x1="151" y1="128" x2="86" y2="88" stroke="#1f2937" />
+      <line x1="214" y1="189" x2="345" y2="200" stroke="#1f2937" />
+      <line x1="170" y1="215" x2="84" y2="258" stroke="#1f2937" />
+      <line x1="248" y1="172" x2="346" y2="174" stroke="#64748b" />
+      <line x1="280" y1="172" x2="346" y2="142" stroke="#92400e" />
+    </g>
+    <g class="text-[13px] font-semibold">
+      <text x="34" y="83" class="fill-gray-800">Loudoun</text>
+      <text x="349" y="204" class="fill-gray-800">Fairfax</text>
+      <text x="31" y="263" class="fill-gray-800">Prince William</text>
+      <text x="349" y="178" class="fill-slate-500">Arlington</text>
+      <text x="349" y="146" class="fill-amber-700">DC</text>
+    </g>
+    <text x="306" y="113" class="fill-gray-400 text-[12px]">Maryland</text>
+    <text x="49" y="289" class="fill-gray-400 text-[12px]">Virginia</text>
+  </svg>
+  <figcaption class="mt-1.5 text-[11px] text-gray-400 leading-relaxed">
+    Loudoun, Fairfax, Prince William — the Northern Virginia data-centre cluster.
+    Data covers Dominion's wider service territory, not these county boundaries alone.
+  </figcaption>
+</figure>
+) : (
+<section class="max-w-4xl mx-auto px-4 pb-8">
+  <div class="border border-gray-200 rounded bg-white px-6 py-5">
+    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-6 items-center">
+      <div>
+        <h2 class="text-base font-semibold mb-2">Locator: Northern Virginia focus counties</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          The highlighted counties are the Northern Virginia data-centre cluster most relevant to
+          DC readers: Loudoun, Fairfax, and Prince William. Arlington is shown as nearby Northern
+          Virginia context, but not as a main data-centre-density county. The published demand data
+          covers Dominion Energy Virginia&rsquo;s wider service territory, not these county boundaries alone.
+        </p>
+        <div class="mt-4 border-l-2 border-slate-300 pl-3 text-xs text-gray-500 leading-relaxed">
+          For the full utility footprint, use Dominion&rsquo;s service-area locator or Virginia SCC&rsquo;s
+          regulated company/service map. This page does not draw a service-territory polygon because
+          I have not found a public open boundary file suitable for reuse.
+          <span class="block mt-1">
+            <a
+              href="https://www.dominionenergy.com/economic-development/virginia/service-area-locator"
+              target="_blank"
+              rel="noopener"
+              class="underline hover:text-gray-700"
+            >
+              Dominion locator
+            </a>
+            <span class="text-gray-300 px-1">/</span>
+            <a
+              href="https://www.scc.virginia.gov/consumers/public-utility/electricity-faqs/regulated-companies-service-map/"
+              target="_blank"
+              rel="noopener"
+              class="underline hover:text-gray-700"
+            >
+              Virginia SCC map
+            </a>
+          </span>
+        </div>
+        <dl class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs text-gray-500">
+          <div class="flex items-center gap-2">
+            <span class="inline-block h-3 w-3 rounded-sm bg-gray-800"></span>
+            <span>Main focus counties</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="inline-block h-3 w-3 rounded-sm bg-slate-400"></span>
+            <span>Nearby context county</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="inline-block h-3 w-3 rounded-sm bg-amber-300"></span>
+            <span>District of Columbia</span>
+          </div>
+        </dl>
+      </div>
+
+      <figure>
+        <svg
+          viewBox="0 0 640 360"
+          role="img"
+          aria-labelledby="dc-region-map-title dc-region-map-desc"
+          class="w-full h-auto"
+        >
+          <title id="dc-region-map-title">Northern Virginia and Washington DC county locator map</title>
+          <desc id="dc-region-map-desc">
+            Census county-boundary map highlighting Loudoun, Fairfax, and Prince William counties, with the District of Columbia shown separately.
+          </desc>
+          <rect width="640" height="360" fill="#f8fafc" rx="10" />
+          {contextPaths.map(d => (
+            <path d={d} fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.2" />
+          ))}
+          {focusCounties.map(county => (
+            <path d={county.d} fill="#1f2937" stroke="#ffffff" stroke-width="1.6">
+              <title>{county.name}</title>
+            </path>
+          ))}
+          {secondaryCounties.map(county => (
+            <path d={county.d} fill="#64748b" stroke="#ffffff" stroke-width="1.4">
+              <title>{county.name}</title>
+            </path>
+          ))}
+          <path d={dcPath} fill="#fbbf24" stroke="#92400e" stroke-width="1.5">
+            <title>District of Columbia</title>
+          </path>
+
+          <g stroke-width="1.2" stroke-linecap="round">
+            <line x1="151" y1="128" x2="86" y2="88" stroke="#1f2937" />
+            <line x1="214" y1="189" x2="345" y2="200" stroke="#1f2937" />
+            <line x1="170" y1="215" x2="84" y2="258" stroke="#1f2937" />
+            <line x1="248" y1="172" x2="346" y2="174" stroke="#64748b" />
+            <line x1="280" y1="172" x2="346" y2="142" stroke="#92400e" />
+          </g>
+          <g class="text-[13px] font-semibold">
+            <text x="34" y="83" class="fill-gray-800">Loudoun</text>
+            <text x="349" y="204" class="fill-gray-800">Fairfax</text>
+            <text x="31" y="263" class="fill-gray-800">Prince William</text>
+            <text x="349" y="178" class="fill-slate-500">Arlington</text>
+            <text x="349" y="146" class="fill-amber-700">DC</text>
+          </g>
+          <text x="306" y="113" class="fill-gray-400 text-[12px]">Maryland</text>
+          <text x="49" y="289" class="fill-gray-400 text-[12px]">Virginia</text>
+        </svg>
+        <figcaption class="mt-2 text-[11px] text-gray-400 leading-relaxed">
+          Boundary source: US Census Bureau 2024 Cartographic Boundary Files, county layer
+          (1:20,000,000). Map is a locator for the proxy region; it is not a Dominion service-territory map.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+)}

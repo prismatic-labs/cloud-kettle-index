@@ -77,21 +77,21 @@ export default function DemandShare() {
   return (
     <div aria-live="polite" aria-label="Live demand and kettle-boils estimates">
 
-      {/* Primary: % share of GB demand */}
-      <div className="flex items-baseline gap-3 flex-wrap mt-1">
+      {/* Primary: live kbs */}
+      <div className="flex items-center gap-2 mt-1 flex-wrap">
         <span className="text-3xl font-bold font-tabular text-[var(--color-accent)]">
-          ~{nesoShare.toFixed(1)}%
-        </span>
-        <span className="text-base text-gray-600">of current GB electricity demand</span>
-      </div>
-
-      {/* Secondary: live kbs */}
-      <div className="flex items-center gap-2 mt-2 flex-wrap">
-        <span className="text-lg font-semibold font-tabular text-gray-700">
           ~{kbs.toLocaleString("en-GB")}
         </span>
-        <span className="text-sm text-gray-500">kettle-boils per second</span>
+        <span className="text-base text-gray-600">kettle-boils per second</span>
         <KettleTrain />
+      </div>
+
+      {/* Secondary: % share of GB demand */}
+      <div className="flex items-baseline gap-2 mt-2 flex-wrap">
+        <span className="text-lg font-semibold font-tabular text-gray-700">
+          ~{nesoShare.toFixed(1)}%
+        </span>
+        <span className="text-sm text-gray-500">of current GB electricity demand</span>
       </div>
 
       {/* Staleness / source line */}

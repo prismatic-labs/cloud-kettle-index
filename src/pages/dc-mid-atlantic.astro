@@ -1,0 +1,224 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import DcRegionMap from "../components/DcRegionMap.astro";
+import KettleTrain from "../components/KettleTrain";
+import UsDataRequestScoreboard from "../components/UsDataRequestScoreboard.astro";
+import UsDemandTrajectory from "../components/UsDemandTrajectory";
+import UsGridShareChart from "../components/UsGridShareChart";
+import UsLoadShapeChart from "../components/UsLoadShapeChart";
+import UsSourceStrip from "../components/UsSourceStrip.astro";
+import { usModel } from "../lib/usModel";
+
+const region  = usModel("dc-mid-atlantic");
+const primary = region.primary;
+
+const base    = import.meta.env.BASE_URL.replace(/\/$/, "");
+const pageUrl = `${base}/dc-mid-atlantic/`;
+
+// Round kbs to nearest 100 (figures in the ~10,000–13,000+ range);
+// round MW to nearest 10 for readability.
+function roundKbs(kbs: number): string {
+  return (Math.round(kbs / 100) * 100).toLocaleString("en-US");
+}
+function roundMw(mw: number): string {
+  return (Math.round(mw / 10) * 10).toLocaleString("en-US");
+}
+
+const heroKbs = roundKbs(primary.kbs);
+const heroMw  = roundMw(primary.demandMw);
+const avgKbs  = roundKbs(primary.averageContinuousKbs);
+const avgMw   = roundMw(primary.averageContinuousMw);
+---
+
+<BaseLayout
+  title="DC + Mid-Atlantic — Cloud Kettle Index"
+  description="Dominion Energy Virginia data-centre billing demand translated into kettle-boils per second. A Northern Virginia / DC-area cloud-load proxy by Prismatic Labs."
+  canonicalUrl={`https://prismatic-labs.github.io${pageUrl}`}
+  currentRegion="dc-mid-atlantic"
+>
+
+  <!-- Hero -->
+  <section class="max-w-4xl mx-auto px-4 pt-12 pb-8">
+
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-3"
+        style="font-family: Georgia, 'Times New Roman', ui-serif, serif;">
+      Data-centre electricity demand in Northern Virginia, shown in kettle-boils per second
+    </h1>
+
+    <p class="text-base text-gray-500 mb-8 max-w-2xl">
+      The US Cloud Kettle Index translates Dominion Energy Virginia's published data-centre
+      billing-demand figures into kettle-boils per second. It is framed for DC + Mid-Atlantic
+      readers because Northern Virginia is the region's dominant cloud-infrastructure cluster.
+    </p>
+
+    <!-- Hero metric — matches DemandShare layout on GB page -->
+    <div class="mb-8">
+      <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">
+        Northern Virginia cloud-load proxy — {primary.label}
+      </p>
+      <div class="flex items-center gap-2 mt-1 flex-wrap">
+        <span class="text-3xl font-bold tabular-nums text-[var(--color-accent)]">
+          ~{heroKbs}
+        </span>
+        <span class="text-base text-gray-600">kettle-boils per second</span>
+        <KettleTrain client:load />
+      </div>
+      <p class="text-xs text-gray-400 mt-1">
+        Dominion {primary.demandMw.toLocaleString("en-US")}&nbsp;MW billing demand equivalent
+        &divide; 0.36&nbsp;MW/kbs &middot; {primary.kind}
+      </p>
+    </div>
+
+    <p class="mt-6 text-sm text-slate-600 border-l-2 border-slate-300 pl-3 leading-relaxed max-w-xl">
+      The published demand data is public. Measured load is not.
+      This page uses the best available proxy sources. &mdash;
+      <a href={`${base}/methodology`} class="underline text-slate-600">Full methodology</a>
+    </p>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 items-start">
+      <div class="text-sm text-gray-500 space-y-2">
+        <p>
+          <strong class="text-gray-700">{primary.year} {primary.kind}:</strong>
+          Dominion Energy Virginia publishes {heroMw}&nbsp;MW of data-centre billing demand
+          in its Virginia service territory.
+          At 0.36&nbsp;MW per kettle-boil/sec, that is ~{heroKbs}&nbsp;kbs.
+        </p>
+        <p>
+          <strong class="text-gray-700">Scope and average-load context:</strong>
+          {region.modelScope}{" "}
+          Dominion reports an industry load factor of approximately 90%, implying roughly
+          {avgMw}&nbsp;MW average continuous draw (~{avgKbs}&nbsp;kbs).
+          The headline uses billing demand because that is what Dominion publishes.
+        </p>
+        <p>
+          <a href={`${base}/methodology`} class="underline font-medium text-gray-600 hover:text-gray-900">
+            Full methodology →
+          </a>
+        </p>
+      </div>
+      <DcRegionMap compact />
+    </div>
+
+  </section>
+
+  <!-- Source trail — early provenance, before interpretation -->
+  <UsSourceStrip />
+
+  <!-- Caveats — right after the hero metric, before the charts -->
+  <section class="max-w-4xl mx-auto px-4 pb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+      <div class="border-l-4 border-amber-300 bg-amber-50 px-4 py-3 space-y-1.5">
+        <h2 class="text-sm font-semibold">Billing demand, not metered load</h2>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          {heroMw}&nbsp;MW is Dominion's {primary.label} data-centre billing demand —
+          used for tariff calculations, not measured grid draw.
+          Dominion separately derives coincident (metered) demand, which is generally lower.
+          At ~90% load factor, average continuous draw is roughly {avgMw}&nbsp;MW (~{avgKbs}&nbsp;kbs).
+        </p>
+      </div>
+      <div class="border border-gray-200 rounded-lg px-4 py-3">
+        <h2 class="text-sm font-semibold text-gray-700 mb-2">What this is not</h2>
+        <ul class="text-xs text-gray-600 space-y-1 list-none p-0 m-0">
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>Data centres physically inside DC.</span></li>
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>Total PJM data-centre load (13 states + DC).</span></li>
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>A full Northeast model (PJM + NYISO + ISO-NE).</span></li>
+          <li class="flex gap-1.5"><span class="text-gray-400 shrink-0">—</span><span>Live grid demand — modelled estimates only.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dominion forecast trajectory -->
+  <section class="max-w-4xl mx-auto px-4 pb-8 space-y-6">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">Published Dominion data-centre billing demand</h2>
+      <p class="text-sm text-gray-500 max-w-2xl leading-relaxed">
+        Dominion's public figures show data-centre billing demand rising from 2024 actuals
+        through the 2030 planning forecast. Select a year to inspect the conversion.
+      </p>
+    </div>
+
+    <UsDemandTrajectory client:load scenarios={region.scenarios} primary={primary} sources={region.sources} />
+
+    <div class="mt-3 text-xs text-gray-400 max-w-2xl space-y-1">
+      {region.sources.map((src, i) => (
+        <p>
+          {i === 0 ? "Primary source:" : "Also:"}{" "}
+          <a href={src.url} target="_blank" rel="noopener" class="underline hover:text-gray-600">
+            {src.title}
+          </a> ({src.note}).
+        </p>
+      ))}
+    </div>
+  </section>
+
+  <!-- Load-shape context -->
+  <section class="max-w-4xl mx-auto px-4 pb-8">
+    <UsLoadShapeChart client:load />
+  </section>
+
+
+  <!-- PJM grid context -->
+  <section class="max-w-4xl mx-auto px-4 pb-8">
+    <div class="mb-3">
+      <h2 class="text-lg font-semibold mb-1">Latest-reported PJM grid context</h2>
+      <p class="text-sm text-gray-500 max-w-2xl leading-relaxed">
+        This comparison keeps the Dominion data-centre numerator fixed and lets the wider PJM
+        demand denominator move. It is useful context, not a Dominion-zone meter.
+      </p>
+    </div>
+    <UsGridShareChart primary={primary} />
+  </section>
+
+  <UsDataRequestScoreboard />
+
+  <!-- Future expansion -->
+  <section class="max-w-4xl mx-auto px-4 pb-8">
+    <div class="max-w-2xl">
+      <h2 class="text-sm font-semibold text-gray-700 mb-2">Future expansion</h2>
+      <p class="text-sm text-gray-500 leading-relaxed">
+        A fuller Northeast version would need separate treatment for PJM, NYISO, and ISO-NE.
+        A future PJM comparison could add Dominion-zone demand (via EIA sub-BA data) as a better
+        grid-share denominator than PJM total, and latest-reported values properly labelled as
+        delayed, not live.
+      </p>
+    </div>
+  </section>
+
+  <!-- Links -->
+  <section class="max-w-4xl mx-auto px-4 pb-16 border-t border-gray-100 pt-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+      <div>
+        <h3 class="font-semibold mb-1">Great Britain page</h3>
+        <p class="text-gray-500 mb-2">
+          The original Cloud Kettle Index: GB data-centre load based on NESO and DSIT figures,
+          with live Elexon grid demand and UKPN load shapes.
+        </p>
+        <a href={`${base}/`} class="underline font-medium">Go to GB page →</a>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-1">Request US records</h3>
+        <p class="text-gray-500 mb-2">
+          Ask for better data using Virginia FOIA, federal FOIA, DC FOIA, or utility commission
+          filings. Ready-to-send templates for DC-area data-centre electricity records.
+        </p>
+        <a href={`${base}/records-us`} class="underline font-medium">US public records templates →</a>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-1">Methodology</h3>
+        <p class="text-gray-500 mb-2">
+          The formula, data sources, assumptions, and what this site does not claim.
+        </p>
+        <a href={`${base}/methodology`} class="underline font-medium">Read the methodology →</a>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-1">vetch</h3>
+        <p class="text-gray-500 mb-2">
+          Open-source LLM inference energy measurement and circuit breakers for runaway cost and carbon.
+        </p>
+        <a href="https://github.com/prismatic-labs/vetch" class="underline font-medium">GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

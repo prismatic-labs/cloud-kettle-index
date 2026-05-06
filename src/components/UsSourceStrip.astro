@@ -1,0 +1,55 @@
+---
+const sources = [
+  {
+    label: "Dominion forecast",
+    text: "Year-by-year data-centre billing demand used for the headline and trajectory.",
+    href: "https://www.in.gov/iurc/files/1.-Data-Center-Forecasting.pdf",
+  },
+  {
+    label: "PJM deck",
+    text: "Dominion large-load request materials that corroborate the forecast series.",
+    href: "https://www.pjm.com/-/media/DotCom/committees-groups/subcommittees/las/2025/20250916/20250916-item-04ai---dominion-data-center-large-load-request.pdf",
+  },
+  {
+    label: "EIA PJM demand",
+    text: "Latest-reported PJM balancing-authority demand for grid-share context.",
+    href: "https://www.eia.gov/opendata/browser/electricity/rto/region-data",
+  },
+  {
+    label: "Census boundaries",
+    text: "County boundary geometry for the Northern Virginia locator map.",
+    href: "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
+  },
+  {
+    label: "Dominion profiles",
+    text: "Generic large-customer settlement/load-research profiles, not data-centre profiles.",
+    href: "https://www.dominionenergy.com/virginia/rates-and-tariffs/competitive-energy-suppliers/downloadable-profiles",
+  },
+  {
+    label: "Service territory",
+    text: "Dominion and Virginia SCC service-area references; no open polygon is used here.",
+    href: "https://www.scc.virginia.gov/consumers/public-utility/electricity-faqs/regulated-companies-service-map/",
+  },
+];
+---
+
+<section class="max-w-4xl mx-auto px-4 pb-8">
+  <h2 class="text-lg font-semibold mb-1">Source trail</h2>
+  <p class="text-sm text-gray-500 max-w-2xl leading-relaxed mb-4">
+    The US page mixes several public sources. These cards show what each source does, and what it
+    does not prove.
+  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {sources.map(source => (
+      <a
+        href={source.href}
+        target="_blank"
+        rel="noopener"
+        class="block border border-gray-200 rounded bg-white px-4 py-3 hover:border-gray-300 transition-colors"
+      >
+        <h3 class="text-sm font-semibold text-gray-800 mb-1">{source.label}</h3>
+        <p class="text-xs text-gray-500 leading-relaxed">{source.text}</p>
+      </a>
+    ))}
+  </div>
+</section>

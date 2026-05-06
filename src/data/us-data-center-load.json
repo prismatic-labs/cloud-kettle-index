@@ -1,0 +1,35 @@
+{
+  "regions": [
+    {
+      "id": "dc-mid-atlantic",
+      "displayName": "DC + Mid-Atlantic",
+      "modelScope": "Dominion Energy Virginia service-territory data-centre billing demand. Framed as DC + Mid-Atlantic because Northern Virginia, which dominates Dominion’s data-centre load, is the cloud-infrastructure cluster most relevant to DC readers.",
+      "demandMw": {
+        "actual2024": 3584,
+        "forecast2025": 4149,
+        "projection2026": 4753,
+        "projection2027": 5322,
+        "projection2028": 5863,
+        "projection2029": 6419,
+        "projection2030": 6992
+      },
+      "primaryScenario": "projection2026",
+      "loadFactor": 0.9,
+      "sources": [
+        {
+          "title": "Dominion Energy Virginia 2025 data-centre forecasting presentation",
+          "publisher": "Dominion Energy Virginia",
+          "note": "Indiana IURC filing",
+          "url": "https://www.in.gov/iurc/files/1.-Data-Center-Forecasting.pdf"
+        },
+        {
+          "title": "PJM Dominion data-centre large load request",
+          "publisher": "PJM Interconnection",
+          "note": "Load Analysis Subcommittee, September 2025",
+          "url": "https://www.pjm.com/-/media/DotCom/committees-groups/subcommittees/las/2025/20250916/20250916-item-04ai---dominion-data-center-large-load-request.pdf"
+        }
+      ],
+      "caveat": "Not a measurement of data centres physically inside DC. Not total PJM or Northeast data-centre load."
+    }
+  ]
+}

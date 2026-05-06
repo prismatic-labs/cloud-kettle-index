@@ -1,0 +1,11 @@
+{
+  "generatedAt": null,
+  "status": "missing-api-key",
+  "respondent": "PJM",
+  "source": {
+    "title": "EIA Balancing Authority Areas hourly operating data",
+    "url": "https://www.eia.gov/opendata/browser/electricity/rto/region-data",
+    "note": "Hourly balancing-authority demand. Requires an EIA API key during the static build refresh step."
+  },
+  "records": []
+}

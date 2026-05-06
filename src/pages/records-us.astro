@@ -1,0 +1,196 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import UsPublicRecordsTemplate from "../components/UsPublicRecordsTemplate";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<BaseLayout
+  title="US public records templates — Cloud Kettle Index"
+  description="Request data-centre electricity demand records using Virginia FOIA, federal FOIA, and DC FOIA. Ready-to-send templates for DC/Mid-Atlantic grid and planning data."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+
+    <h1 class="text-3xl font-bold text-[var(--color-text)] mb-4">
+      Request US data-centre electricity records
+    </h1>
+
+    <p class="text-gray-600 mb-4 leading-relaxed">
+      The DC + Mid-Atlantic estimate uses Dominion Energy Virginia's published billing-demand
+      figures — a good starting point, but not measured load. Better data exists in regulatory
+      filings, utility commission dockets, and planning records. Public records laws give you a
+      practical route to ask for it.
+    </p>
+    <p class="text-gray-600 mb-8 leading-relaxed">
+      These templates cover Virginia FOIA, federal FOIA, and DC FOIA requests. Virginia FOIA
+      requires &ldquo;reasonable specificity.&rdquo; Agencies must respond within five working days
+      and may request up to seven additional working days (twelve working days total in complex cases).
+      Federal FOIA targets DOE, EIA, and FERC. DC FOIA gives access to
+      public records held by DC agencies — but agencies are not required to create analysis,
+      only to release records they already hold.
+    </p>
+
+    <!-- What is available without a request -->
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">What is already public</h2>
+      <p class="text-gray-600 mb-3 leading-relaxed">
+        Some useful records are already publicly available without a formal request:
+      </p>
+      <div class="space-y-4 text-sm text-gray-600">
+        <div>
+          <p class="font-medium text-gray-700 mb-1">Virginia State Corporation Commission (SCC) dockets</p>
+          <p>
+            Dominion Energy Virginia files integrated resource plans, rate cases, and load forecasts
+            with the SCC. These filings are public and searchable at
+            <a href="https://www.scc.virginia.gov" class="underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">scc.virginia.gov</a>.
+            The Indiana IURC filing used as the source for this site is one example of a publicly
+            filed utility document.
+          </p>
+        </div>
+        <div>
+          <p class="font-medium text-gray-700 mb-1">PJM planning and load documents</p>
+          <p>
+            PJM publishes long-term load forecasts, interconnection queue data, and planning reports
+            at
+            <a href="https://www.pjm.com/planning/resource-adequacy-planning/load-forecast-dev-process" class="underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">pjm.com</a>.
+            Dominion zone load forecast materials are included.
+          </p>
+        </div>
+        <div>
+          <p class="font-medium text-gray-700 mb-1">EIA Hourly Electric Grid Monitor</p>
+          <p>
+            EIA publishes hourly balancing-authority demand, including PJM, at no cost via its
+            <a href="https://www.eia.gov/electricity/gridmonitor/" class="underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">Hourly Electric Grid Monitor</a>.
+            Balancing-authority total demand is near real time; sub-regional data (e.g. Dominion zone)
+            may lag by one to two days.
+          </p>
+        </div>
+        <div>
+          <p class="font-medium text-gray-700 mb-1">County planning portals</p>
+          <p>
+            Loudoun County, Fairfax County, and Prince William County publish planning applications
+            and special-use permits online. Data-centre applications often include energy statements
+            or grid-impact assessments.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to ask for -->
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">What to ask for via FOIA</h2>
+      <p class="text-gray-600 mb-3 leading-relaxed">
+        Records that public bodies may hold but have not proactively published:
+      </p>
+      <ul class="text-sm text-gray-600 space-y-1 list-disc list-outside pl-5">
+        <li>internal demand forecasts and load growth assumptions for data centres</li>
+        <li>grid connection applications, capacity assessments, and connection agreements</li>
+        <li>internal briefings or correspondence about data-centre electricity demand or grid reinforcement</li>
+        <li>assumptions used in local energy, infrastructure, or economic-development planning</li>
+        <li>carbon or emissions assumptions linked to data-centre electricity use</li>
+        <li>planning documents that discuss energy use, grid impact, or infrastructure requirements</li>
+      </ul>
+    </section>
+
+    <!-- Who might hold it -->
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">Who might hold it</h2>
+      <p class="text-gray-600 mb-4 leading-relaxed">
+        No single body will hold everything. Target whichever is most likely to hold what
+        you are looking for.
+      </p>
+      <div class="space-y-4 text-sm text-gray-600">
+        <div>
+          <p class="font-medium text-gray-700 mb-1">Local planning (Virginia FOIA)</p>
+          <p>Loudoun County, Fairfax County, Prince William County planning departments; county boards of supervisors; local economic-development authorities.</p>
+        </div>
+        <div>
+          <p class="font-medium text-gray-700 mb-1">Virginia state agencies (Virginia FOIA)</p>
+          <p>Virginia Department of Energy, Virginia Economic Development Partnership, Virginia State Corporation Commission (most SCC filings are already public via docket search).</p>
+        </div>
+        <div>
+          <p class="font-medium text-gray-700 mb-1">Federal agencies (federal FOIA)</p>
+          <p>Department of Energy / Energy Information Administration (EIA) — for national or regional demand surveys and reports; Federal Energy Regulatory Commission (FERC) — for interconnection and transmission documents; EPA — for emissions or environmental assessments.</p>
+        </div>
+        <div>
+          <p class="font-medium text-gray-700 mb-1">DC agencies (DC FOIA)</p>
+          <p>DC Office of Planning, DC Department of Energy and Environment. Note: the DC grid is served primarily by Pepco (a private utility), which is not subject to DC FOIA. FERC and PJM filings are the better route for DC-area grid capacity data.</p>
+        </div>
+      </div>
+      <p class="text-xs text-gray-400 mt-4">
+        Private data-centre operators and utilities are not directly subject to FOIA, but public
+        bodies may hold information about them through planning, grid, or regulatory processes.
+      </p>
+    </section>
+
+    <!-- How to use -->
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-3">How to use these templates</h2>
+      <ol class="text-sm text-gray-600 space-y-2 list-decimal list-outside pl-5">
+        <li>Replace the square-bracketed text with your specific locality, project, date range, and contact details.</li>
+        <li>
+          Virginia FOIA: send to the relevant agency's FOIA officer (most agencies accept email;
+          some have online portals). Include a return address or email — it is required.
+          The agency must respond within five working days; it may request up to seven additional
+          working days for complex requests (twelve working days maximum total).
+        </li>
+        <li>
+          Federal FOIA: identify the specific office within DOE, EIA, or FERC most likely to hold
+          the records, and submit via that office's FOIA portal or email. Response is required
+          within 20 business days, though backlogs are common.
+        </li>
+        <li>
+          If the agency says the request is too broad, ask what categories of records they hold
+          and how to narrow it. The templates include a clause prompting this.
+        </li>
+        <li>
+          If you receive a useful response, consider sharing it via
+          <a href="https://www.muckrock.com" class="underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">MuckRock</a>
+          so the public record can improve.
+        </li>
+      </ol>
+    </section>
+
+    <!-- Templates -->
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-1">The templates</h2>
+      <p class="text-sm text-gray-500 mb-4">
+        Three templates: Virginia FOIA (most relevant for Loudoun/Fairfax/Prince William county
+        data and state agencies), federal FOIA (DOE/EIA, FERC), and DC FOIA.
+        All are editable before you copy.
+      </p>
+      <UsPublicRecordsTemplate client:load />
+    </section>
+
+    <!-- What to expect -->
+    <section class="mb-10 bg-gray-50 border border-gray-200 rounded p-5 text-sm text-gray-600 leading-relaxed">
+      <p class="font-semibold text-gray-700 mb-2">What to expect</p>
+      <p class="mb-2">
+        Virginia FOIA: agencies may withhold records under specific exemptions, including trade secrets,
+        attorney-client privilege, and certain law-enforcement or security information. The template
+        asks them to identify any exemption and release what they can.
+      </p>
+      <p>
+        Federal FOIA: common exemptions include confidential commercial information (Exemption 4),
+        internal agency deliberations (Exemption 5), and national security (Exemption 1). Request a
+        Vaughn index if records are withheld so you can assess whether to appeal.
+      </p>
+    </section>
+
+    <!-- UK EIR link -->
+    <section class="mb-10">
+      <p class="text-sm text-gray-500">
+        Looking for the UK version?
+        <a href={`${base}/eir`} class="underline hover:text-gray-800">Environmental Information Request templates for Great Britain →</a>
+      </p>
+    </section>
+
+    <!-- Back link -->
+    <p class="text-sm">
+      <a href={`${base}/dc-mid-atlantic`} class="underline text-gray-500 hover:text-gray-800">
+        &larr; Back to DC + Mid-Atlantic
+      </a>
+    </p>
+
+  </article>
+</BaseLayout>

@@ -98,6 +98,93 @@ Great Britain only (England, Scotland, Wales). Northern Ireland uses a separate 
 - DSIT's 1.6 GW as a current 2026 figure
 - Northern Ireland coverage
 
+## DC + Mid-Atlantic page methodology
+
+The DC + Mid-Atlantic page uses a different model from the GB page. The core data-centre load
+estimate comes directly from Dominion Energy Virginia's own published billing-demand forecasts,
+not from IT capacity assumptions.
+
+### Source
+
+**[Dominion Energy Virginia 2025 data-centre forecasting presentation](https://www.in.gov/iurc/files/1.-Data-Center-Forecasting.pdf)** (Indiana IURC filing, 2025) and **[PJM Dominion data-centre large load request](https://www.pjm.com/-/media/DotCom/committees-groups/subcommittees/las/2025/20250916/20250916-item-04ai---dominion-data-center-large-load-request.pdf)** (PJM Load Analysis Subcommittee, September 2025).
+Both sources provide year-by-year data-centre billing demand for Dominion's Virginia service territory:
+
+- 2024 actual: ~3,584 MW
+- 2025 forecast: ~4,149 MW
+- 2026 projection: ~4,753 MW (primary figure used on the DC + Mid-Atlantic page)
+- 2027 projection: ~5,322 MW
+- 2028 projection: ~5,863 MW
+- 2029 projection: ~6,419 MW
+- 2030 projection: ~6,992 MW
+- Industry load factor: ~90%
+
+### Why UTILISATION × PUE is not applied
+
+The GB model applies capacity-utilisation and PUE assumptions to DSIT's *IT capacity* to estimate
+facility electricity demand. Dominion's billing-demand figures are already power demand — the
+grid draw in MW. Applying utilisation and PUE again would double-count. The conversion is simply:
+
+```
+kbs = billing_demand_mw / 0.36
+```
+
+### Billing demand vs average continuous load
+
+Dominion's billing demand is the demand value used for utility tariff calculations, not coincident
+grid peak. Dominion separately derives *coincident demand* — the actual grid draw at the time of
+system peak — from billing-demand forecasts; coincident demand is generally somewhat lower.
+Dominion reports a ~90% industry load factor. The headline kbs figure translates billing demand
+directly as a power-rate comparison, not an annual-average energy estimate. Average continuous
+draw can be estimated as billing demand × 0.90, giving ~4,280 MW (~11,900 kbs) for the 2026 projection.
+
+### Why Northern Virginia / Dominion zone for a DC-area estimate
+
+I could not identify a public data-centre load figure for DC proper. Northern Virginia (Loudoun,
+Fairfax, Prince William counties) is reported by JLARC (2024) as representing roughly 13% of
+global data-centre operational capacity and 25% of Americas capacity. It sits within Dominion
+Energy Virginia's service territory and powers much of the cloud infrastructure used in and
+around Washington, DC. The Dominion service-territory billing demand is the most concrete and
+well-sourced proxy used here.
+
+Note: the scientific scope of this page is the Dominion Virginia service territory, not Northern
+Virginia counties alone; "DC + Mid-Atlantic" is reader framing reflecting where this load is most
+relevant.
+
+### What the DC + Mid-Atlantic estimate is not
+
+- A measurement of data centres physically inside Washington, DC.
+- Total PJM data-centre load (PJM covers 13 states + DC).
+- A full Northeast model — PJM, NYISO, and ISO-NE would each need separate treatment.
+- A live grid demand share — modelled billing-demand estimates only.
+
+### Intraday load shaping
+
+The DC + Mid-Atlantic page includes a shape-only intraday comparison. I could not identify a
+public data-centre-specific half-hourly profile analogous to UKPN's dataset for Northern
+Virginia. The chart therefore keeps two things separate: a conservative synthetic data-centre
+daily shape anchored to Dominion's approximately 90% industry load-factor context, and generic
+Dominion Energy Virginia customer-class hourly profiles for selected large-customer classes
+(GS3, GS4, LGEMLP, and MS). Those Dominion profiles are real utility settlement/load-research
+profiles, but they are not data-centre-specific and are used only as context. COMM6VA is omitted
+because Dominion publishes it as a weather-sensitive formula table rather than a simple hourly
+profile.
+
+### Latest-reported PJM grid demand comparison
+
+The GB page shows live "share of GB demand" via Elexon's public API. The DC + Mid-Atlantic page
+now includes the closest static-site equivalent: a latest-reported PJM demand comparison using
+EIA Balancing Authority Areas hourly operating data. The numerator is still modelled Dominion
+data-centre billing demand; the denominator is PJM balancing-authority demand. This is not live
+data-centre load, not Dominion-zone load, and not county-level demand. EIA data can lag, so the
+page labels this as latest-reported grid context rather than live demand.
+
+## National US context
+
+For broader national context on US data-centre electricity use (not used as model inputs):
+
+- **[LBNL 2024 US Data Center Energy Usage Report](https://buildings.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report)** — closest US analogue to a national baseline; DOE has noted load could double or triple by 2028.
+- **[EPRI 2026 data-centre electricity analysis](https://www.globenewswire.com/news-release/2026/02/26/3245491/0/en/epri-data-centers-could-consume-up-to-17-of-u-s-electricity-by-2030.html)** — projects 9–17% of US electricity by 2030; a scenario range, not measured load. Cite as context only.
+
 ## What would make this estimate better
 
 1. **Site-level disclosure from operators** — half-hourly grid utilisation published by operators
