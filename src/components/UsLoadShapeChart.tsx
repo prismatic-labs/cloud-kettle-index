@@ -26,13 +26,6 @@ const Y_TICKS = [0.8, 0.9, 1.0, 1.1, 1.2];
 const Y_MIN = 0.75;
 const Y_MAX = 1.28;
 
-const DATA_CENTRE_VALUES = Array.from({ length: 24 }, (_, hour) => {
-  const midday = 0.026 * Math.exp(-Math.pow((hour - 14) / 5.6, 2));
-  const evening = 0.01 * Math.exp(-Math.pow((hour - 20) / 3.6, 2));
-  const overnight = 0.026 * Math.exp(-Math.pow((hour - 4) / 3.2, 2));
-  return 0.992 + midday + evening - overnight;
-});
-
 const PROFILE_EXPLANATIONS = [
   ["GS3", "Large general-service customers connected at secondary voltage; a useful commercial/industrial comparator, but not data centres."],
   ["GS4", "Large general-service customers connected at primary voltage; flatter than GS3 in this dataset and closer to very large continuous loads."],
@@ -77,10 +70,10 @@ export default function UsLoadShapeChart() {
           </p>
           <p className="text-xs text-gray-500 leading-relaxed max-w-2xl">
             Dominion publishes generic customer-class hourly profiles for supplier settlement.
-            They are not data-centre-specific, but they provide a real Dominion-territory
-            comparison point. Pick a class below; the dark line remains the illustrative
-            high-load-factor data-centre shape. Generic large-customer profiles vary much more
-            through the day, which is why the data-centre load-factor assumption matters.
+            They are not data-centre-specific, but they are the closest published Dominion-territory
+            load shapes available. Each profile is normalised to its own average; the 1.0 line is
+            the average baseline. Data centres are often assumed to be high-load-factor loads,
+            but Dominion does not publish measured data-centre hourly profiles.
           </p>
         </div>
 
@@ -125,16 +118,15 @@ export default function UsLoadShapeChart() {
 
         <p className="text-xs text-gray-500 mb-3">
           <strong className="text-gray-700">{selected.label}:</strong>{" "}
-          {selected.description}. The selected Dominion profile varies by{" "}
-          <strong className="text-gray-700">{variation(classValues)}%</strong> on a{" "}
-          {DAY_LABELS[dayType].toLowerCase()}; the illustrative data-centre line varies by{" "}
-          <strong className="text-gray-700">{variation(DATA_CENTRE_VALUES)}%</strong>.
+          {selected.description}. The selected profile varies by{" "}
+          <strong className="text-gray-700">{variation(classValues)}%</strong> peak-to-trough on a{" "}
+          {DAY_LABELS[dayType].toLowerCase()}.
         </p>
 
         <svg
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
           role="img"
-          aria-label={`Dominion generic ${selected.label} ${DAY_LABELS[dayType]} profile compared with an illustrative data-centre load shape`}
+          aria-label={`Dominion generic ${selected.label} ${DAY_LABELS[dayType]} load profile, normalised to average`}
           className="w-full h-auto min-h-[210px]"
         >
           <rect x="0" y="0" width={WIDTH} height={HEIGHT} fill="white" />
@@ -149,8 +141,8 @@ export default function UsLoadShapeChart() {
 
           {Y_TICKS.map(tick => (
             <g key={tick}>
-              <line x1={MARGIN.left} y1={yFor(tick)} x2={WIDTH - MARGIN.right} y2={yFor(tick)} stroke="#e5e7eb" />
-              <text x={MARGIN.left - 10} y={yFor(tick) + 5} textAnchor="end" className="fill-gray-500 text-[12px] tabular-nums">
+              <line x1={MARGIN.left} y1={yFor(tick)} x2={WIDTH - MARGIN.right} y2={yFor(tick)} stroke={tick === 1.0 ? "#94a3b8" : "#e5e7eb"} strokeWidth={tick === 1.0 ? 1.5 : 1} />
+              <text x={MARGIN.left - 10} y={yFor(tick) + 5} textAnchor="end" className={tick === 1.0 ? "fill-slate-500 text-[12px] tabular-nums font-semibold" : "fill-gray-500 text-[12px] tabular-nums"}>
                 {tick.toFixed(1)}
               </text>
             </g>
@@ -176,12 +168,11 @@ export default function UsLoadShapeChart() {
           </text>
 
           <path d={pathFor(classValues)} fill="none" stroke="#d97706" strokeWidth="2.2" strokeDasharray="6 4" />
-          <path d={pathFor(DATA_CENTRE_VALUES)} fill="none" stroke="#334155" strokeWidth="3" />
         </svg>
 
         <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
-          <span><span className="inline-block w-5 h-0.5 border-t-2 border-slate-700 mr-1 align-middle" />Illustrative data-centre shape</span>
           <span><span className="inline-block w-5 h-0.5 border-t-2 border-dashed border-amber-600 mr-1 align-middle" />Selected Dominion class</span>
+          <span><span className="inline-block w-5 h-0.5 border-t border-slate-400 mr-1 align-middle" />Average baseline (1.0)</span>
         </div>
 
         <p className="text-xs text-gray-400 mt-2">
