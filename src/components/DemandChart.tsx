@@ -32,7 +32,7 @@ function buildSharePlot(
       axes: [
         { label: "Time (London)", values: (_s, vals) => vals.map(timeLabel), gap: 8, size: 36 },
         {
-          label: "% of GB demand",
+          label: "% of GB grid demand",
           labelSize: 14,
           size: 64,
           values: (_s, vals) => vals.map(v => `${v.toFixed(1)}%`),
@@ -135,8 +135,8 @@ export default function DemandChart() {
 
   // latestNeso already set above
   const ariaLabel = latestNeso
-    ? `Modelled data-centre load as share of GB demand over the past 24 hours. NESO 2025 estimate currently ~${latestNeso.toFixed(1)}% of GB demand.`
-    : "Chart loading - modelled data-centre share of GB electricity demand.";
+    ? `Modelled data-centre load as share of GB transmission-grid demand over the past 24 hours. NESO 2025 estimate currently ~${latestNeso.toFixed(1)}% of grid demand.`
+    : "Chart loading - modelled data-centre share of GB transmission-grid demand.";
 
   return (
     <figure className="my-6">
@@ -146,7 +146,7 @@ export default function DemandChart() {
         <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
           <div>
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-              Modelled data-centre share of GB demand - last 24 hours
+              Modelled data-centre share of GB grid demand - last 24 hours
             </p>
             {latestNeso && (
               <p className="text-xs text-amber-700 font-medium font-tabular mt-0.5">
@@ -192,7 +192,7 @@ export default function DemandChart() {
 
       <figcaption className="text-xs text-gray-400 pt-2">
         {lastUpdated
-          ? `Updated ${lastUpdated}. GB demand: Elexon BMRS. NESO line shaped by UKPN measured profiles (96 anonymised sites, Jan 2023–Apr 2026). DSIT band: scenario range. Neither is a live data-centre meter.`
+          ? `Updated ${lastUpdated}. GB transmission-grid demand: Elexon BMRS (excludes rooftop solar and small wind). NESO line shaped by UKPN measured profiles (96 anonymised sites, Jan 2023–Apr 2026). DSIT band: scenario range. Neither is a live data-centre meter.`
           : "Loading…"}
       </figcaption>
     </figure>

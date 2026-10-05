@@ -80,7 +80,7 @@ intraday variation. The raw parquet is not committed; only the derived aggregate
 | Parliament POSTnote 762 | https://post.parliament.uk/research-briefings/post-pn-0762/ | Cross-check for NESO figure |
 | DSIT 2024 | https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024 | National and ITL1 regional IT capacity - scenario range |
 | UKPN Data Centre Demand Profiles | https://ukpowernetworks.opendatasoft.com | Relative load shape only (apparent power utilisation ratios, not absolute MW) - used to shape NESO central estimate |
-| Elexon BMRS | https://developer.elexon.co.uk | Live GB electricity demand (half-hourly) |
+| Elexon BMRS | https://bmrs.elexon.co.uk/api-documentation | Live GB electricity demand (half-hourly) |
 | Carbon Intensity API | https://api.carbonintensity.org.uk | Carbon intensity (context only) |
 | postcodes.io | https://postcodes.io | Postcode → ITL1 region |
 

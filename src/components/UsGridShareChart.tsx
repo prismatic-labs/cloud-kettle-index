@@ -11,17 +11,21 @@ const MARGIN = { top: 30, right: 28, bottom: 50, left: 72 };
 const INNER_W = WIDTH - MARGIN.left - MARGIN.right;
 const INNER_H = HEIGHT - MARGIN.top - MARGIN.bottom;
 
+/** EIA "hourly" periods are UTC; labels are shown in Eastern Time. */
 function formatAxisPeriod(period: string) {
   const match = period.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2})/);
-  if (!match) return [period.slice(5).replace("T", " "), "ET"];
+  if (!match) return [period.slice(5).replace("T", " "), "UTC"];
 
   const [, year, month, day, hour] = match;
-  const date = new Date(Number(year), Number(month) - 1, Number(day));
+  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour)));
   const dateLabel = new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
+    timeZone: "America/New_York",
   }).format(date);
-  const hourNumber = Number(hour);
+  const hourNumber = Number(
+    new Intl.DateTimeFormat("en-US", { hour: "numeric", hourCycle: "h23", timeZone: "America/New_York" }).format(date),
+  );
   const hourLabel =
     hourNumber === 0
       ? "midnight"

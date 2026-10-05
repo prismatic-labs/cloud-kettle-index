@@ -36,9 +36,9 @@ export function buildNationalShareText(state: NationalShareInput): string {
     : `Data as of ${state.time}, ${state.date}.`;
 
   return [
-    `The Cloud Kettle Index puts Britain's annual-average data-centre electricity demand at ~${fmt(state.nesoKbs)} kettle-boils per second - based on NESO's 2025 estimate of 7.6 TWh/year, equivalent to ~${state.nesoShare.toFixed(1)}% of current GB electricity demand.`,
+    `The Cloud Kettle Index puts Britain's annual-average data-centre electricity demand at ~${fmt(state.nesoKbs)} kettle-boils per second - based on NESO's 2025 estimate of 7.6 TWh/year, equivalent to ~${state.nesoShare.toFixed(1)}% of current GB transmission-grid demand (around 2% of all electricity used, per UK Parliament POST).`,
     ``,
-    `Scenario range (DSIT capacity model): ${fmt(state.lowKettles)}–${fmt(state.highKettles)} kbs, or ${state.lowShare.toFixed(1)}–${state.highShare.toFixed(1)}% of GB demand.`,
+    `Scenario range (DSIT capacity model): ${fmt(state.lowKettles)}–${fmt(state.highKettles)} kbs, or ${state.lowShare.toFixed(1)}–${state.highShare.toFixed(1)}% of GB grid demand.`,
     ``,
     `Modelled estimate, not a live meter. The live grid is public; the data-centre load is not. This is the most transparent public estimate we could build.`,
     ``,

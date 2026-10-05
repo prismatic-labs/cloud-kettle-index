@@ -49,7 +49,7 @@ import BaseLayout from "../components/BaseLayout.astro";
       <h2 class="text-xl font-semibold mb-3">What this site does</h2>
       <p>
         The Cloud Kettle Index estimates GB data-centre electricity demand and expresses it as
-        <strong>kettle-boils per second</strong>. GB electricity demand falls by roughly 15–20%
+        <strong>kettle-boils per second</strong>. GB grid demand can fall by up to about 15%
         on bank holidays and quiet days. Data-centre demand is generally much flatter - so
         when national demand dips, data centres represent a larger share of the grid.
       </p>
@@ -63,8 +63,9 @@ import BaseLayout from "../components/BaseLayout.astro";
     <section id="kettle-boil-unit" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">The kettle-boil unit</h2>
       <p>
-        One kettle-boil is defined as <strong>0.1 kWh</strong> - the energy a 3&nbsp;kW electric kettle
-        uses to boil approximately one litre of water from 15°C to 100°C.
+        One kettle-boil is defined as <strong>0.1 kWh</strong> - the energy needed to heat one litre
+        of water from 15°C to 100°C, ignoring heat losses. A real kettle uses a little more (about
+        0.11 kWh), so this unit slightly overstates the number of real kettle-boils.
       </p>
       <p>
         One <em>kettle-boil per second</em> is a rate: it means 0.1 kWh of energy is consumed every second.
@@ -95,8 +96,16 @@ NESO estimate: 7.6 TWh/year from 2.4 GW connected GB data-centre facilities
 Average continuous power: 7.6 TWh ÷ 8,760 h/year = ~868 MW
 Kettle-boils/sec: 868 MW ÷ 0.36 = ~2,410 kbs
 
-Estimated share of GB demand
+Estimated share of GB transmission-grid demand
   = ~868 MW ÷ live Elexon BMRS demand (MW)</pre>
+      <p class="text-sm text-gray-600 mt-2">
+        <strong>Why the live share runs higher than &ldquo;around 2%&rdquo;.</strong> Elexon&rsquo;s
+        Initial National Demand Outturn is electricity drawn from the transmission grid. It leaves out
+        power from rooftop solar and smaller wind farms that is used locally, so it is smaller than
+        total use. Over 2025 it came to 228.8&nbsp;TWh, which makes NESO&rsquo;s 7.6&nbsp;TWh about
+        3.3% of it; against all electricity used, POSTnote 762 puts data centres at around 2%. The
+        live share also rises at midday on sunny days, when rooftop solar lowers grid demand.
+      </p>
       <p class="text-sm text-gray-600 mt-2">
         Source: NESO Future Energy Scenarios 2025 (July 2025), confirmed in
         UK Parliament POSTnote 762 (March 2026). The 7.6&nbsp;TWh figure represents total
@@ -214,13 +223,14 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
 
         <div>
           <dt class="font-semibold">
-            <a href="https://developer.elexon.co.uk">Elexon BMRS Initial National Demand Outturn</a>
+            <a href="https://bmrs.elexon.co.uk/api-documentation">Elexon BMRS Initial National Demand Outturn</a>
           </dt>
           <dd class="text-sm mt-1">
             Public API from Elexon, the electricity balancing and settlement code manager for GB.
-            Provides half-hourly GB electricity demand in MW, updated within approximately 15 minutes
-            of the end of each settlement period. No authentication required. Used for the live
-            "share of GB demand" figure and the demand chart. We fetch this directly in the browser;
+            Provides half-hourly GB transmission-grid demand in MW (excluding locally used rooftop
+            solar and small wind), updated within approximately 15 minutes of the end of each
+            settlement period. No authentication required. Used for the live "share of GB
+            transmission-grid demand" figure and the demand chart. We fetch this directly in the browser;
             the displayed timestamp reflects the settlement period start time.
           </dd>
         </div>
@@ -358,8 +368,9 @@ kbs = billing_demand_mw / 0.36</pre>
 
       <h3 class="font-semibold mt-5 mb-2">Billing demand vs average continuous load</h3>
       <p class="text-sm text-gray-600">
-        Dominion&rsquo;s billing demand figure represents peak or contracted demand used for
-        utility tariff calculations, not average energy use or coincident grid peak. Dominion
+        Dominion&rsquo;s billing demand figure is each customer&rsquo;s metered monthly peak demand,
+        used for utility tariff calculations (Dominion bases its forecast on 11+ years of metered
+        data-centre customer data), not average energy use or coincident grid peak. Dominion
         separately derives <em>coincident demand</em> - the actual grid draw at the moment
         of system peak - from its billing-demand forecasts; coincident demand is generally
         somewhat lower. Dominion reports an industry load factor of approximately 90%, implying
@@ -406,7 +417,7 @@ kbs = billing_demand_mw / 0.36</pre>
 
       <h3 class="font-semibold mt-5 mb-2">Latest-reported PJM grid demand comparison</h3>
       <p class="text-sm text-gray-600">
-        The GB page shows a live &ldquo;share of GB demand&rdquo; metric using Elexon&rsquo;s
+        The GB page shows a live &ldquo;share of GB transmission-grid demand&rdquo; metric using Elexon&rsquo;s
         public half-hourly demand API. The DC + Mid-Atlantic page includes the closest
         static-site equivalent: a latest-reported PJM demand comparison using EIA Balancing
         Authority Areas hourly operating data. The numerator is still modelled Dominion

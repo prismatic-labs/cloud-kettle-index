@@ -37,7 +37,7 @@ Neither page measures live data-centre electricity demand from meters. Both reco
 | [NESO Future Energy Scenarios 2025](https://www.neso.energy/publications/future-energy-scenarios-fes) | National data-centre electricity estimate — central figure (7.6 TWh/yr) |
 | [DSIT Estimate of Data Centre Capacity GB 2024](https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024) | National and regional IT capacity — scenario range |
 | [UKPN Data Centre Demand Profiles](https://ukpowernetworks.opendatasoft.com) | Relative load shape — intraday and day-type variation (96 anonymised sites) |
-| [Elexon BMRS Initial National Demand Outturn](https://developer.elexon.co.uk/api-details#api=prod-insol-insights-api) | Live GB electricity demand, half-hourly |
+| [Elexon BMRS Initial National Demand Outturn](https://bmrs.elexon.co.uk/api-documentation) | Live GB electricity demand, half-hourly |
 | [Carbon Intensity API](https://api.carbonintensity.org.uk) | National and regional carbon intensity |
 | [postcodes.io](https://postcodes.io) | Postcode to ITL1 region mapping |
 

@@ -179,7 +179,7 @@ export default function PostcodeLookup() {
               <strong>
                 {state.demandShareLow.toFixed(2)}–{state.demandShareHigh.toFixed(2)}%
               </strong>{" "}
-              of current GB electricity demand.
+              of current GB transmission-grid demand.
             </p>
           )}
 
