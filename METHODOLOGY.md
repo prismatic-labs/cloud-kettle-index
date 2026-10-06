@@ -52,6 +52,17 @@ day, the NESO central estimate is scaled by a relative utilisation multiplier de
 anonymised data-centre sites (78 colocation, 18 enterprise) in the UKPN licence area (London, South
 East, East of England), January 2023–April 2026.
 
+### Bank-holiday reduction in grid demand
+
+Measured, not asserted. `scripts/bank-holiday-effect.ts` (`npm run measure:bank-holidays`) totals
+each England-and-Wales bank holiday's 48 half-hourly Elexon INDO readings into energy and compares
+it against the mean of the same weekday in the three weeks either side, excluding other bank
+holidays. Output: `src/data/bank-holiday-effect.json`. For 2026 so far: 7% to 18% below the
+comparable weekday, median 12%.
+
+Note the two different quantities. *Grid* demand falls by a median 12% on a bank holiday (above).
+*Data-centre* load falls about 3.6% (UKPN profiles, below). That gap is the contrast the site shows.
+
 The multiplier is looked up by day type (weekday, Saturday, Sunday, bank holiday) and half-hour
 slot. Timestamps are parsed as UTC and converted to Europe/London before slot assignment, ensuring
 correct handling of British Summer Time. Each site's shape index is normalised to its own overall
