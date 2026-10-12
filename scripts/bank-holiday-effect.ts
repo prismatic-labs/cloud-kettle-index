@@ -93,6 +93,17 @@ const measured = holidays.flatMap((h) => {
   }];
 });
 
+// Without this, an empty result yields Math.min(...[]) === Infinity and a NaN
+// median, which JSON.stringify writes as null. That would silently overwrite a
+// good data file with nulls, and the pages interpolate these figures into copy.
+if (measured.length === 0) {
+  console.error(
+    `Measured no bank holidays for ${YEAR}: Elexon returned no complete day for any of ` +
+      `${holidays.length} holidays, or no usable comparison days. Leaving ${OUT} unchanged.`,
+  );
+  process.exit(1);
+}
+
 const falls = measured.map((m) => m.percentBelowBaseline).sort((a, b) => a - b);
 const median = falls.length % 2
   ? falls[(falls.length - 1) / 2]!
