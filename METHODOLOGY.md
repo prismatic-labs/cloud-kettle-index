@@ -52,6 +52,17 @@ day, the NESO central estimate is scaled by a relative utilisation multiplier de
 anonymised data-centre sites (78 colocation, 18 enterprise) in the UKPN licence area (London, South
 East, East of England), January 2023–April 2026.
 
+### Bank-holiday reduction in grid demand
+
+Measured, not asserted. `scripts/bank-holiday-effect.ts` (`npm run measure:bank-holidays`) totals
+each England-and-Wales bank holiday's 48 half-hourly Elexon INDO readings into energy and compares
+it against the mean of the same weekday in the three weeks either side, excluding other bank
+holidays. Output: `src/data/bank-holiday-effect.json`. For 2026 so far: 7% to 18% below the
+comparable weekday, median 12%.
+
+Note the two different quantities. *Grid* demand falls by a median 12% on a bank holiday (above).
+*Data-centre* load falls about 3.6% (UKPN profiles, below). That gap is the contrast the site shows.
+
 The multiplier is looked up by day type (weekday, Saturday, Sunday, bank holiday) and half-hour
 slot. Timestamps are parsed as UTC and converted to Europe/London before slot assignment, ensuring
 correct handling of British Summer Time. Each site's shape index is normalised to its own overall
@@ -80,7 +91,7 @@ intraday variation. The raw parquet is not committed; only the derived aggregate
 | Parliament POSTnote 762 | https://post.parliament.uk/research-briefings/post-pn-0762/ | Cross-check for NESO figure |
 | DSIT 2024 | https://www.gov.uk/government/publications/estimate-of-data-centre-capacity-great-britain-2024 | National and ITL1 regional IT capacity - scenario range |
 | UKPN Data Centre Demand Profiles | https://ukpowernetworks.opendatasoft.com | Relative load shape only (apparent power utilisation ratios, not absolute MW) - used to shape NESO central estimate |
-| Elexon BMRS | https://developer.elexon.co.uk | Live GB electricity demand (half-hourly) |
+| Elexon BMRS | https://bmrs.elexon.co.uk/api-documentation | Live GB electricity demand (half-hourly) |
 | Carbon Intensity API | https://api.carbonintensity.org.uk | Carbon intensity (context only) |
 | postcodes.io | https://postcodes.io | Postcode → ITL1 region |
 

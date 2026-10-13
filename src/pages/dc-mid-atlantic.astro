@@ -108,11 +108,11 @@ const avgMw   = roundMw(primary.averageContinuousMw);
   <section class="max-w-4xl mx-auto px-4 pb-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
       <div class="border-l-4 border-amber-300 bg-amber-50 px-4 py-3 space-y-1.5">
-        <h2 class="text-sm font-semibold">Billing demand, not metered load</h2>
+        <h2 class="text-sm font-semibold">Peak billing demand, not average load</h2>
         <p class="text-sm text-gray-700 leading-relaxed">
-          {heroMw}&nbsp;MW is Dominion's {primary.label} data-centre billing demand -
-          used for tariff calculations, not measured grid draw.
-          Dominion separately derives coincident (metered) demand, which is generally lower.
+          {heroMw}&nbsp;MW is Dominion's {primary.label} data-centre billing demand: each customer's
+          metered monthly peak, used for tariffs. It is not average draw, and not demand at the
+          moment the whole system peaks (coincident demand), which is generally lower.
           At ~90% load factor, average continuous draw is roughly {avgMw}&nbsp;MW (~{avgKbs}&nbsp;kbs).
         </p>
       </div>

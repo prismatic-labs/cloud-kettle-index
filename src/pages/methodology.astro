@@ -1,5 +1,11 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
+import bankHolidays from "../data/bank-holiday-effect.json";
+
+const bh = bankHolidays.summary;
+const bhMax = Math.round(bh.maxPercentBelow);
+const bhMin = Math.round(bh.minPercentBelow);
+const bhMedian = Math.round(bh.medianPercentBelow);
 ---
 
 <BaseLayout
@@ -49,7 +55,7 @@ import BaseLayout from "../components/BaseLayout.astro";
       <h2 class="text-xl font-semibold mb-3">What this site does</h2>
       <p>
         The Cloud Kettle Index estimates GB data-centre electricity demand and expresses it as
-        <strong>kettle-boils per second</strong>. GB electricity demand falls by roughly 15–20%
+        <strong>kettle-boils per second</strong>. GB grid demand can fall by up to about {bhMax}%
         on bank holidays and quiet days. Data-centre demand is generally much flatter - so
         when national demand dips, data centres represent a larger share of the grid.
       </p>
@@ -63,8 +69,9 @@ import BaseLayout from "../components/BaseLayout.astro";
     <section id="kettle-boil-unit" class="mb-10">
       <h2 class="text-xl font-semibold mb-3">The kettle-boil unit</h2>
       <p>
-        One kettle-boil is defined as <strong>0.1 kWh</strong> - the energy a 3&nbsp;kW electric kettle
-        uses to boil approximately one litre of water from 15°C to 100°C.
+        One kettle-boil is defined as <strong>0.1 kWh</strong> - the energy needed to heat one litre
+        of water from 15°C to 100°C, ignoring heat losses. A real kettle uses a little more (about
+        0.11 kWh), so this unit slightly overstates the number of real kettle-boils.
       </p>
       <p>
         One <em>kettle-boil per second</em> is a rate: it means 0.1 kWh of energy is consumed every second.
@@ -95,8 +102,24 @@ NESO estimate: 7.6 TWh/year from 2.4 GW connected GB data-centre facilities
 Average continuous power: 7.6 TWh ÷ 8,760 h/year = ~868 MW
 Kettle-boils/sec: 868 MW ÷ 0.36 = ~2,410 kbs
 
-Estimated share of GB demand
+Estimated share of GB transmission-grid demand
   = ~868 MW ÷ live Elexon BMRS demand (MW)</pre>
+      <p class="text-sm text-gray-600 mt-2">
+        <strong>Why the live share runs higher than &ldquo;around 2%&rdquo;.</strong> Elexon&rsquo;s
+        Initial National Demand Outturn measures electricity drawn from the GB <em>transmission</em>
+        grid. That is a narrower quantity than total electricity use, for several reasons at once: it
+        excludes generation embedded in the distribution network and consumed locally (rooftop and
+        field-scale solar, smaller wind farms, small-scale CHP), it excludes transmission losses and
+        power station load, and it covers Great Britain rather than the whole UK.
+      </p>
+      <p class="text-sm text-gray-600 mt-2">
+        Summed over 2025 the series came to 228.8&nbsp;TWh, so NESO&rsquo;s 7.6&nbsp;TWh is about
+        <strong>3.3%</strong> of it. Measured against all UK electricity instead, which DUKES puts at
+        323&nbsp;TWh of demand in 2025, the same 7.6&nbsp;TWh is about <strong>2.4%</strong>. That is
+        the figure POSTnote 762 rounds to &ldquo;around 2%&rdquo;. So the live number on this site is
+        not a different estimate of data-centre load; it is the same load over a smaller denominator.
+        It also rises at midday on sunny days, when embedded solar pushes grid demand down.
+      </p>
       <p class="text-sm text-gray-600 mt-2">
         Source: NESO Future Energy Scenarios 2025 (July 2025), confirmed in
         UK Parliament POSTnote 762 (March 2026). The 7.6&nbsp;TWh figure represents total
@@ -122,6 +145,32 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
         facilities only and requires utilisation and PUE assumptions. Together they bracket
         a plausible range. The NESO figure is the more directly relevant demand estimate;
         the DSIT scenarios provide uncertainty bounds.
+      </p>
+
+      <h3 class="font-semibold mt-6 mb-2">How far grid demand falls on bank holidays</h3>
+      <p class="text-sm text-gray-600">
+        This used to be asserted as a range with no derivation. It is now measured from the same
+        public Elexon INDO series the live figure uses, by
+        <code>scripts/bank-holiday-effect.ts</code>, which writes
+        <code>src/data/bank-holiday-effect.json</code>. For each England-and-Wales bank holiday we
+        total the day&rsquo;s 48 half-hourly readings into energy, then compare that against the mean
+        of the <em>same weekday</em> in the three weeks either side, excluding other bank holidays.
+        Comparing like weekday with like keeps the seasonal trend out of the result, and a
+        three-week window either side gives up to six comparison days per holiday.
+      </p>
+      <p class="text-sm text-gray-600 mt-2">
+        Across the {bh.holidaysMeasured} bank holidays so far in {bankHolidays.year}, grid demand ran
+        <strong>{bhMin}% to {bhMax}% below</strong> the comparable weekday, median {bhMedian}%. The
+        deepest was New Year&rsquo;s Day, which sits inside the Christmas shutdown; the shallowest was
+        the early May holiday. The range is sensitive to the comparison window: using only the
+        weeks immediately either side widens it at both ends, which is why the wider window is used
+        and the median is quoted alongside the range.
+      </p>
+      <p class="text-sm text-gray-600 mt-2">
+        This is the contrast the site exists to show, and the two numbers come from different
+        sources: <em>grid</em> demand falls by a median {bhMedian}% on a bank holiday (Elexon,
+        measured above), while <em>data-centre</em> load falls about 3.6% (UKPN profiles, below).
+        That gap is why the data-centre share of the grid rises on quiet days.
       </p>
 
       <h3 class="font-semibold mt-6 mb-2">Intraday shaping - UKPN measured profiles</h3>
@@ -214,13 +263,14 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
 
         <div>
           <dt class="font-semibold">
-            <a href="https://developer.elexon.co.uk">Elexon BMRS Initial National Demand Outturn</a>
+            <a href="https://bmrs.elexon.co.uk/api-documentation">Elexon BMRS Initial National Demand Outturn</a>
           </dt>
           <dd class="text-sm mt-1">
             Public API from Elexon, the electricity balancing and settlement code manager for GB.
-            Provides half-hourly GB electricity demand in MW, updated within approximately 15 minutes
-            of the end of each settlement period. No authentication required. Used for the live
-            "share of GB demand" figure and the demand chart. We fetch this directly in the browser;
+            Provides half-hourly GB transmission-grid demand in MW (excluding embedded generation
+            consumed locally, transmission losses and station load), updated within approximately 15 minutes of the end of each
+            settlement period. No authentication required. Used for the live "share of GB
+            transmission-grid demand" figure and the demand chart. We fetch this directly in the browser;
             the displayed timestamp reflects the settlement period start time.
           </dd>
         </div>
@@ -234,6 +284,19 @@ The NESO central estimate (~868 MW) sits within this range.</pre>
             Provides national and regional carbon intensity (gCO₂/kWh) at half-hourly resolution.
             Regional carbon intensity is shown as context alongside postcode lookups; it does not
             affect the modelled data-centre load figure.
+          </dd>
+        </div>
+
+        <div>
+          <dt class="font-semibold">
+            <a href="https://www.gov.uk/government/statistical-data-sets/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes">
+              DUKES Chapter 5 - Electricity (DESNZ)
+            </a>
+          </dt>
+          <dd class="text-sm mt-1">
+            UK electricity demand and final consumption by year. Used only to put the live
+            transmission-grid share in context: 323&nbsp;TWh of UK demand in 2025 against
+            228.8&nbsp;TWh on the GB national demand outturn basis. Not used in any headline figure.
           </dd>
         </div>
 
@@ -358,8 +421,9 @@ kbs = billing_demand_mw / 0.36</pre>
 
       <h3 class="font-semibold mt-5 mb-2">Billing demand vs average continuous load</h3>
       <p class="text-sm text-gray-600">
-        Dominion&rsquo;s billing demand figure represents peak or contracted demand used for
-        utility tariff calculations, not average energy use or coincident grid peak. Dominion
+        Dominion&rsquo;s billing demand figure is each customer&rsquo;s metered monthly peak demand,
+        used for utility tariff calculations (Dominion bases its forecast on 11+ years of metered
+        data-centre customer data), not average energy use or coincident grid peak. Dominion
         separately derives <em>coincident demand</em> - the actual grid draw at the moment
         of system peak - from its billing-demand forecasts; coincident demand is generally
         somewhat lower. Dominion reports an industry load factor of approximately 90%, implying
@@ -406,7 +470,7 @@ kbs = billing_demand_mw / 0.36</pre>
 
       <h3 class="font-semibold mt-5 mb-2">Latest-reported PJM grid demand comparison</h3>
       <p class="text-sm text-gray-600">
-        The GB page shows a live &ldquo;share of GB demand&rdquo; metric using Elexon&rsquo;s
+        The GB page shows a live &ldquo;share of GB transmission-grid demand&rdquo; metric using Elexon&rsquo;s
         public half-hourly demand API. The DC + Mid-Atlantic page includes the closest
         static-site equivalent: a latest-reported PJM demand comparison using EIA Balancing
         Authority Areas hourly operating data. The numerator is still modelled Dominion

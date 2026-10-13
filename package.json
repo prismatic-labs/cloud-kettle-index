@@ -12,7 +12,7 @@
     "astro": "astro",
     "test": "vitest run",
     "refresh:us-grid": "node --experimental-strip-types scripts/fetch-us-grid-demand.ts",
-    "verify:data": "node --experimental-strip-types scripts/verify-dsit.ts"
+    "measure:bank-holidays": "node --experimental-strip-types scripts/bank-holiday-effect.ts"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",

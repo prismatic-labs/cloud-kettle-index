@@ -1,7 +1,12 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import { nationalModel } from "../lib/dcModel";
+import bankHolidays from "../data/bank-holiday-effect.json";
 
+const bh = bankHolidays.summary;
+const bhMax = Math.round(bh.maxPercentBelow);
+const bhMin = Math.round(bh.minPercentBelow);
+const bhMedian = Math.round(bh.medianPercentBelow);
 const model = nationalModel();
 const kbsLow  = Math.round(model.kettleBoilsPerSec.low  / 10) * 10;
 const kbsHigh = Math.round(model.kettleBoilsPerSec.high / 10) * 10;
@@ -19,7 +24,7 @@ const kbsHigh = Math.round(model.kettleBoilsPerSec.high / 10) * 10;
       <p class="text-gray-700 leading-relaxed mb-4">
         The Cloud Kettle Index estimates Great Britain&rsquo;s data-centre electricity load and
         expresses it in a familiar unit: kettle-boils per second.
-        On bank holidays and quiet days, GB electricity demand falls by roughly 15–20%.
+        On bank holidays and quiet days, GB grid demand can fall by up to about {bhMax}%.
         Data-centre demand is generally much flatter than residential and commercial electricity
         use - so when national demand dips, data centres can represent a larger share of
         the grid. This site makes that contrast visible. All figures are modelled estimates based on published capacity data,
@@ -63,7 +68,7 @@ const kbsHigh = Math.round(model.kettleBoilsPerSec.high / 10) * 10;
         <blockquote class="bg-gray-50 border-l-4 border-gray-200 pl-4 py-3 pr-4 text-sm text-gray-700 leading-relaxed italic">
           The Cloud Kettle Index is a public-interest website that estimates Great Britain&rsquo;s
           data-centre electricity load and expresses it as kettle-boils per second.
-          On bank holidays, GB electricity demand falls by around 15–20%. Data-centre load does
+          On bank holidays, GB grid demand can fall by up to about {bhMax}%. Data-centre load does
           not. The site estimates that data centres draw between {kbsLow.toLocaleString("en-GB")}
           and {kbsHigh.toLocaleString("en-GB")} kettle-boils per second continuously -
           a modelled estimate based on published capacity data, not a live meter reading.
@@ -81,8 +86,10 @@ const kbsHigh = Math.round(model.kettleBoilsPerSec.high / 10) * 10;
             energy a standard 3-kilowatt kettle uses to boil one litre of water from cold.
           </p>
           <p>
-            On bank holidays, Sundays, and overnight, GB electricity demand typically falls by
-            15–20%. Data-centre demand is generally far flatter than residential and commercial
+            On bank holidays, Sundays, and overnight, GB grid demand drops well below weekday
+            daytime levels. We measured the {bh.holidaysMeasured} bank holidays so far in {bankHolidays.year}
+            at {bhMin}–{bhMax}% below the same weekday either side, median {bhMedian}%.
+            Data-centre demand is generally far flatter than residential and commercial
             electricity use - it powers cloud services, streaming, banking, AI, and internet
             infrastructure around the clock. When national demand dips, data centres can represent
             a larger share of the grid. The Cloud Kettle Index makes this contrast visible.

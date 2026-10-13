@@ -91,8 +91,12 @@ export default function DemandShare() {
         <span className="text-lg font-semibold font-tabular text-gray-700">
           ~{nesoShare.toFixed(1)}%
         </span>
-        <span className="text-sm text-gray-500">of current GB electricity demand</span>
+        <span className="text-sm text-gray-500">of electricity on GB&rsquo;s transmission grid right now</span>
       </div>
+      <p className="text-xs text-gray-500 mt-1">
+        The grid figure leaves out rooftop solar and small wind farms. Against all electricity used,
+        data centres are around 2% (UK Parliament POST).
+      </p>
 
       {/* Staleness / source line */}
       <p className="text-xs text-gray-400 mt-1">
